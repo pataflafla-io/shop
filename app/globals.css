@@ -4,11 +4,22 @@
 @tailwind utilities;
 
 :root {
-  --primary: #274494;
+  --primary: #FAA72Cff;
   --background: #f3f4ef;
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+  
+  --orange: #FAA72Cff;
+  --seaweed: #49AD89ff;
+  --carrot-orange: #F69830ff;
+  --soft-apricot: #F2D3B1ff;
+  --dark-cyan: #1C9189ff;
+}
+
+@theme {
+  --color-brand-primary: var(--carrot-orange);
+  --color-brand-primary-hover: var(--orange);
 }
 /* 
 @media (prefers-color-scheme: dark) {
@@ -54,7 +65,7 @@ body {
 
 
 .btn-primary {
-  @apply bg-blue-600 hover:bg-blue-800 text-white py-2 px-4 rounded transition-all;
+  @apply bg-brand-primary hover:bg-brand-primary-hover text-white py-2 px-4 rounded transition-all duration-200;
 }
 
 .btn-secondary {
