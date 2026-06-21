@@ -2,6 +2,6 @@ import { PageNotFound } from "@/components/ui";
 
 export default function () {
     return (
-        <PageNotFound />
+        <PageNotFound message="No tenemos productos bajo esa categoría." />
     );
 }
