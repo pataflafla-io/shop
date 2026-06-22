@@ -30,7 +30,7 @@ export const TopMenu = () => {
                 <Link href="/search" className="mx-2">
                     <IoSearchOutline className="w-5 h-5" />
                 </Link>
-                <Link href="/search" className="mx-2">
+                <Link href="/cart" className="mx-2">
                     <div className="relative">
                         <span className="absolute -top-2 -right-2 px-1 text-xs rounded-full bg-emerald-600 font-bold text-white">3</span>
                         <IoCartOutline className="w-5 h-5" />
