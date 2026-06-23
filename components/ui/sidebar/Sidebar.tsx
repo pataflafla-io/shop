@@ -15,7 +15,7 @@ export const Sidebar = () => {
                 <div className="fixed z-10 top-0 left-0 w-full h-screen bg-black opacity-50" />
             )}
             {isSidebarOpen && (
-                <div onClick={closeSidebar} className="fade-in fixed z-10 top-0 left-0 w-full h-screen backdrop-filter backdrop-blur-md" />
+                <div onClick={closeSidebar} className="fade-in fixed z-10 top-0 left-0 w-full h-screen backdrop-filter backdrop-blur-xs" />
             )}
 
 
