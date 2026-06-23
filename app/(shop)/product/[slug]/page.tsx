@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { titleFont } from "@/config/fonts";
-import { QuantitySelector, SizeSelector } from "@/components";
+import { ProductMobileSlideShow, ProductSlideShow, QuantitySelector, SizeSelector } from "@/components";
 
 import { initialData } from "@/seed/seed";
 
@@ -22,7 +22,8 @@ export default async function ({ params }: Props) {
         <div className="mt-5 mb-20 grid md:grid-cols-3 gap-3">
 
             <div className="col-span-1 md:col-span-2">
-                <h1>Hola mundo</h1>
+                <ProductMobileSlideShow className="block sm:hidden" title={product.title} images={product.images} />
+                <ProductSlideShow className="hidden sm:block" title={product.title} images={product.images} />
             </div>
             <div className="col-span-1 px-5">
                 <h1 className={`${titleFont.className} antialiased font-bold text-xl`}>{product.title}</h1>
