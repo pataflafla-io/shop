@@ -3,7 +3,7 @@ export const revalidate = 10080;
 
 import { Metadata, ResolvingMetadata } from "next";
 import { titleFont } from "@/config/fonts";
-import { ProductMobileSlideShow, ProductSlideShow, StockLabel } from "@/components";
+import { ProductMobileSlideShow, ProductSlideShow } from "@/components";
 import { getProductBySlug } from "@/app/actions";
 import { AddToCart } from "./ui/addToCart";
 
