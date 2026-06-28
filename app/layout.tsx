@@ -3,7 +3,10 @@ import { inter } from "@/config/fonts"
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Pataflafla shop",
+  title: {
+    template: '%s - pataflafla.io',
+    default: 'home - pataflafla.io'
+  },
   description: "Tienda de productos",
 };
 
