@@ -1,9 +1,7 @@
-import Link from "next/link";
 import Image from "next/image"
-import { Title } from "@/components/ui";
-import { initialData } from "@/seed/seed";
 import clsx from "clsx";
 import { IoCartOutline } from "react-icons/io5";
+import { Title } from "@/components/ui";
 
 interface Props {
     params: {
@@ -11,14 +9,9 @@ interface Props {
     }
 }
 
-const productsInCart = [
-    initialData.products[0],
-    initialData.products[1],
-    initialData.products[2]
-]
-
 export default async function ({ params }: Props) {
     const { id } = await params;
+    const productsInCart = new Array()
     return (
         <div className="flex justify-center items-center mb-72 px-10 sm:px-0">
             <div className="flex flex-col w-250">
