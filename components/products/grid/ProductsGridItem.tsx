@@ -3,8 +3,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-
 import { Product } from "@/interfaces"
+import { currencyFormat } from "@/utils";
+
 interface Props {
     product: Product;
 }
@@ -25,10 +26,10 @@ export const ProductsGridItem = ({ product }: Props) => {
                 />
             </Link>
             <div className="flex flex-col p-4">
-                <Link className="hover:underline" href={`/product/${product.slug}`}>
+                <Link className="hover:underline text-xl antialiased" href={`/product/${product.slug}`}>
                     {product.title}
                 </Link>
-                <span className="font-bold">{product.price}</span>
+                <span className="font-bold">{currencyFormat(product.price)}</span>
             </div>
         </div>
     )
