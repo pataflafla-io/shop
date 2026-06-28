@@ -1,6 +1,4 @@
 @import "tailwindcss";
-@tailwind base;
-@tailwind components;
 @tailwind utilities;
 
 :root {
@@ -9,19 +7,35 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
-  
+
+  /* Paleta de colores */
+  --black: #000000ff;
+  --burnt-peach: #EC7B59ff;
+  --carrot-orange: #F69830ff;
+  --dark-cyan: #1C9189ff;
+  --golden-orange: #F3A844ff;
+  --lime: #00FF00ff;
   --orange: #FAA72Cff;
   --seaweed: #49AD89ff;
-  --carrot-orange: #F69830ff;
   --soft-apricot: #F2D3B1ff;
-  --dark-cyan: #1C9189ff;
 }
 
 @theme {
   --color-brand-primary: var(--carrot-orange);
-  --color-brand-primary-hover: var(--orange);
+  --color-brand-primary-hover: var(--soft-apricot);
+
+  /* TODO: nombrar las variables según funcionalidad */
+  --color-brand-black: var(--black);
+  --color-brand-burnt-peach: var(--burnt-peach);
+  --color-brand-carrot-orange: var(--carrot-orange);
+  --color-brand-dark-cyan: var(--dark-cyan);
+  --color-brand-golden-orange: var(--golden-orange);
+  --color-brand-lime: var(--lime);
+  --color-brand-orange: var(--orange);
+  --color-brand-seaweed: var(--seaweed);
+  --color-brand-soft-apricot: var(--soft-apricot);
 }
-/* 
+/* TODO: Soporte modo dark; ¿si o no?
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
@@ -33,15 +47,7 @@
 body {
   color: rgb(var(--foreground-rgb));
   background: var(--background)
-  /* background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-start-rgb))
-      )
-      rgb(var(--background-end-rgb)) */
 }
-
-
 
 @keyframes fadeIn {
   0% {opacity: 0;}
@@ -54,15 +60,14 @@ body {
 }
 
 .fade-in {
-  -webkit-animation-duration: 0.5s;
-  animation-duration: 0.5s;
+  -webkit-animation-duration: .75s;
+  animation-duration: .75s;
   -webkit-animation-fill-mode: both;
   animation-fill-mode: both;
 
   -webkit-animation-name: fadeIn;
   animation-name: fadeIn;
 }
-
 
 .btn-primary {
   @apply bg-brand-primary hover:bg-brand-primary-hover text-white py-2 px-4 rounded transition-all duration-200;
