@@ -13,6 +13,7 @@ import { getStockBySlug } from "@/app/actions/products/getStockBySlug"
 import { CartProduct, Product, Size } from '@/interfaces';
 import { titleFont } from "@/config/fonts"
 import { QuantitySelector, SizeSelector } from '@/components'
+import { setCookie } from "cookies-next";
 
 interface Props {
     product: Product
@@ -20,6 +21,7 @@ interface Props {
 
 export const AddToCart = ({ product }: Props) => {
 
+    setCookie("gender", product.gender)
     const [stock, setStock] = useState(0)
     const [isLoading, setIsLoading] = useState(true)
 
@@ -76,10 +78,10 @@ export const AddToCart = ({ product }: Props) => {
             </h3>
         }
 
-        {addedToCart && !selectedSize && <span className='mt-5 fade-in text-red-500'>Indique una talla por favor.</span>}
         {(stock > 1) &&
             <>
                 <SizeSelector onSizeChanged={setSelectedSize} selectedSize={selectedSize} availableSizes={product.sizes} />
+                {addedToCart && !selectedSize && <span className='fade-in text-brand-burnt-peach'>Select a size, please.</span>}
                 <QuantitySelector maxQuantity={product.inStock} quantity={selectedQuantity} onQuantityChange={setSelectedQuantity} />
                 <button onClick={addToCart} className="btn-primary my-5">add to cart</button>
             </>

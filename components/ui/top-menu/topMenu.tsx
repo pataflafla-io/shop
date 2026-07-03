@@ -1,12 +1,15 @@
 'use client';
 
 import Link from "next/link"
-import Image from "next/image";
-import { IoCartOutline, IoSearchOutline } from "react-icons/io5"
-
+import Image from "next/image"
+import { useEffect, useState } from 'react'
+import { useParams } from "next/navigation"
 import { useCartStore, useUIStore } from "@/store"
+import { Gender } from "@/interfaces";
+import { getCookie, setCookie } from 'cookies-next/client'
+import clsx from "clsx";
 import { titleFont } from "@/config/fonts"
-import { useEffect, useState } from 'react';
+import { IoCartOutline, IoSearchOutline } from "react-icons/io5"
 
 
 export const TopMenu = () => {
@@ -17,6 +20,15 @@ export const TopMenu = () => {
     // del servicor
     const [isLoading, setIsLoading] = useState(true)
     useEffect(() => setIsLoading(false), [])
+
+    const { gender } = useParams()
+    let genderCookie;
+    if (!gender) {
+        genderCookie = getCookie("gender")
+    } else {
+        setCookie("gender", gender)
+        genderCookie = gender;
+    }
 
     const totalItems = useCartStore(state => state.getTotalItens())
     const openSidebar = useUIStore(state => state.openSidebar)
@@ -42,9 +54,9 @@ export const TopMenu = () => {
                 </Link>
             </div>
             <div className="hidden sm:block">
-                <Link className="m-2 p-2 rounded-md transition-all hover:bg-brand-seaweed" href="/gender/men">men</Link>
-                <Link className="m-2 p-2 rounded-md transition-all hover:bg-brand-seaweed" href="/gender/women">women</Link>
-                <Link className="m-2 p-2 rounded-md transition-all hover:bg-brand-seaweed" href="/gender/kids">kids</Link>
+                <Link className={clsx("m-2 p-2 rounded-md transition-all hover:bg-brand-seaweed hover:text-white", { "bg-brand-orange text-white": genderCookie === "men" })} href="/gender/men">men</Link>
+                <Link className={clsx("m-2 p-2 rounded-md transition-all hover:bg-brand-seaweed hover:text-white", { "bg-brand-orange text-white": genderCookie === "women" })} href="/gender/women">women</Link>
+                <Link className={clsx("m-2 p-2 rounded-md transition-all hover:bg-brand-seaweed hover:text-white", { "bg-brand-orange text-white": genderCookie === "kids" })} href="/gender/kids">kids</Link>
             </div>
             <div className="flex items-center">
                 <Link href="/search" className="mx-2">
@@ -55,7 +67,7 @@ export const TopMenu = () => {
                     className="mx-2">
                     <div className="relative">
                         {
-                            (!isLoading && totalItems > 0) && <span className="absolute -top-2 -right-2 px-1 text-xs rounded-full bg-emerald-600 font-bold fade-in text-white">{totalItems}</span>
+                            (!isLoading && totalItems > 0) && <span className="absolute -top-2 -right-2 px-1 text-xs rounded-full bg-brand-seaweed font-bold fade-in text-white">{totalItems}</span>
                         }
                         <IoCartOutline className="w-5 h-5" />
                     </div>
