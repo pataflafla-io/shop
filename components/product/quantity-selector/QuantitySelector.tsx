@@ -16,7 +16,7 @@ export const QuantitySelector = ({ maxQuantity, quantity, onQuantityChange }: Pr
         onQuantityChange(quantity + value)
     }
     return (
-        <div className="flex">
+        <div className="flex mt-4">
             <button onClick={() => onValueChange(-1)}>
                 <IoRemoveCircleOutline size={20} />
             </button>
