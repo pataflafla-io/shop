@@ -13,7 +13,7 @@ This shop was created from scratch without AI help.
 ## Getting Started
 
 1. Clone this repository
-2. Copy ```.env.template``` and remame it to ```.env``` and change environment variable to yours
+2. Copy ```.env.template``` and rename it to ```.env``` and change environment variable to yours
 3. Install node dependencies:```npm i # or npm install```
 4. Run the database: ```docker compose up -d```  (Docker Desktop must be installed)
 5. Run Prisma migrate dev: ```npx prisma migrate dev```
