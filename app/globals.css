@@ -1,6 +1,16 @@
 @import "tailwindcss";
 @tailwind utilities;
 
+@layer base {
+  button {
+    cursor: pointer;
+    
+    &:is([disabled]) {
+      cursor: not-allowed;
+    }
+  }
+}
+
 :root {
   --primary: #FAA72Cff;
   --background: #f3f4ef;
@@ -33,7 +43,7 @@
   --color-brand-lime: var(--lime);
   --color-brand-orange: var(--orange);
   --color-brand-seaweed: var(--seaweed);
-  --color-brand-soft-apricot: var(--soft-apricot);
+  --color-brand-soft: var(--soft-apricot);
 }
 /* TODO: Soporte modo dark; ¿si o no?
 @media (prefers-color-scheme: dark) {
@@ -70,7 +80,7 @@ body {
 }
 
 .btn-primary {
-  @apply bg-brand-primary hover:bg-brand-primary-hover text-white py-2 px-4 rounded transition-all duration-200;
+  @apply bg-brand-orange hover:bg-brand-seaweed text-white py-2 px-4 rounded transition-all duration-200;
 }
 
 .btn-secondary {
