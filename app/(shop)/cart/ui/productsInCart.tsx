@@ -27,7 +27,7 @@ export const ProductsInCart = () => {
     return (
         <>
             {!isLoading && productsInCart.map(product => (
-                <div key={`${product.slug}-${product.size}`} className="flex mb-5">
+                <div id={`${product.slug}-${product.size}`} key={`${product.slug}-${product.size}`} className="flex mb-5">
                     <Image
                         alt={product.title}
                         className="mr-5 rounded"
