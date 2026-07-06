@@ -23,7 +23,6 @@ export const getProductBySlug = async (slug: string) => {
         }
 
     } catch (error) {
-        console.log(error);
         throw new Error("😩 No contamos con ese producto")
     }
 }
