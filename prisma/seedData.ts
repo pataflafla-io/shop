@@ -1,3 +1,5 @@
+import bcryptjs from 'bcryptjs';
+
 interface SeedProduct {
     description: string;
     images: string[];
@@ -11,15 +13,38 @@ interface SeedProduct {
     gender: 'men' | 'women' | 'kids'
 }
 
+interface SeedUser {
+    email: string;
+    name: string;
+    password: string;
+    role: 'admin' | 'user'
+}
+
 type ValidSizes = 'XS' | 'S' | 'M' | 'L' | 'XL' | 'XXL' | 'XXXL';
 type ValidTypes = 'shirts' | 'pants' | 'dress' | 'coats' | 'blazer' | 'knit' | 'jeans' | 'skirts' | 'jackets' | 'suits' | 'overshirts' | 'hoodies' | 't-shirts'
 
 interface SeedData {
+    users: SeedUser[],
     categories: { name: string }[],
     products: SeedProduct[],
 }
 
 export const initialData: SeedData = {
+    users: [
+        {
+            email: 'admin@pataflafla.io',
+            name: 'John Doe',
+            password: bcryptjs.hashSync('123456', 10),
+            role: 'admin'
+        },
+        {
+            email: 'user@pataflafla.io',
+            name: 'Jane Doe',
+            password: bcryptjs.hashSync('123456', 10),
+            role: 'user'
+        }
+
+    ],
     categories: [
         { name: 'Shirts' }, { name: 'Pants' }, { name: 'Dress' }, { name: 'Coats' }, { name: 'Blazer' }, { name: 'Knit' }, { name: 'Jeans' }, { name: 'Skirts' }, { name: 'Jackets' }, { name: 'Suits' }, { name: 'Overshirts' }, { name: 'Hoodies' }, { name: 'T-Shirts' }
     ],

@@ -11,6 +11,10 @@ const prisma = new PrismaClient({
     adapter,
 });
 
+const userData: Prisma.UserCreateInput[] = [
+    ...initialData.users
+]
+
 const categoryData: Prisma.CategoryCreateInput[] = [
     ...initialData.categories
 ]
@@ -21,10 +25,14 @@ export async function main() {
     // Elimino todas las entradas
     // Podría ser más performante usar un Promise.all
     // pero eso no garantiza el orden de finalizado
-    // provocando registros huerfanos
+    // provocando, posiblemente, registros huerfanos
     await prisma.productImage.deleteMany()
     await prisma.product.deleteMany()
     await prisma.category.deleteMany()
+    await prisma.user.deleteMany();
+
+    // Creo usuarios
+    await prisma.user.createMany({ data: userData });
 
     //Creo categorías
     for (const category of categoryData) {
