@@ -3,7 +3,7 @@ import Link from "next/link"
 
 export const Footer = () => {
     return (
-        <div className="flex w-full justify-center text-md mb-10">
+        <div className="fade-in flex w-full justify-center text-md mb-10">
             <Link href="/">
                 <span className={`${titleFont.className} antialiased font-bold`}>
                     pataflafla
