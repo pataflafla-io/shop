@@ -3,14 +3,13 @@
 import Link from "next/link"
 import Image from "next/image"
 import { useEffect, useState } from 'react'
-import { useParams } from "next/navigation"
+import { useParams, usePathname, useRouter, useSearchParams } from "next/navigation"
 import { useCartStore, useUIStore } from "@/store"
 import { Gender } from "@/interfaces";
-import { getCookie, setCookie } from 'cookies-next/client'
+import { deleteCookie, getCookie, setCookie } from 'cookies-next/client'
 import clsx from "clsx";
 import { titleFont } from "@/config/fonts"
 import { IoCartOutline, IoSearchOutline } from "react-icons/io5"
-
 
 export const TopMenu = () => {
 
@@ -21,7 +20,20 @@ export const TopMenu = () => {
     const [isLoading, setIsLoading] = useState(true)
     useEffect(() => setIsLoading(false), [])
 
-    const { gender } = useParams()
+    const { gender } = useParams();
+    const pathname = usePathname();
+
+    // @todo: ¿Mover para zustand?
+    // Por qué?
+    // Con esta implementación cubrimos casi todos los 
+    // escenarios salvo cuando seleccionos un producto
+    // desde la home.
+    // ¿Es necesario indicar el género al acceder desde la home?
+    // Sería deseable, además del valor didáctico
+    // que ofrece el aprendizaje.
+    // https://zustand.docs.pmnd.rs/reference/middlewares/persist
+
+    if (pathname === "/") deleteCookie("gender")
     let genderCookie;
     if (!gender) {
         genderCookie = getCookie("gender")
@@ -29,6 +41,8 @@ export const TopMenu = () => {
         setCookie("gender", gender)
         genderCookie = gender;
     }
+    if (pathname === "/") deleteCookie("gender")
+    // Fin mover para zustand?
 
     const totalItems = useCartStore(state => state.getTotalItens())
     const openSidebar = useUIStore(state => state.openSidebar)
