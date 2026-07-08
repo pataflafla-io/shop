@@ -1,3 +1,4 @@
+export * from './authenticated-users/Header'
 export * from './footer/Footer'
 export * from './not-found/PageNotFound'
 export * from './pagination/Pagination'
