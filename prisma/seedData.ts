@@ -1,30 +1,12 @@
 import bcryptjs from 'bcryptjs';
 
-interface SeedProduct {
-    description: string;
-    images: string[];
-    inStock: number;
-    price: number;
-    sizes: ValidSizes[];
-    slug: string;
-    tags: string[];
-    title: string;
-    type: ValidTypes;
-    gender: 'men' | 'women' | 'kids'
-}
-
-interface SeedUser {
-    email: string;
-    name: string;
-    password: string;
-    role: 'admin' | 'user'
-}
-
-type ValidSizes = 'XS' | 'S' | 'M' | 'L' | 'XL' | 'XXL' | 'XXXL';
-type ValidTypes = 'shirts' | 'pants' | 'dress' | 'coats' | 'blazer' | 'knit' | 'jeans' | 'skirts' | 'jackets' | 'suits' | 'overshirts' | 'hoodies' | 't-shirts'
+import type { SeedUser } from './seeds/user';
+import { countries, type SeedCountry } from './seeds/country';
+import { SeedProduct } from './seeds/products';
 
 interface SeedData {
     users: SeedUser[],
+    countries: SeedCountry[],
     categories: { name: string }[],
     products: SeedProduct[],
 }
@@ -45,6 +27,7 @@ export const initialData: SeedData = {
         }
 
     ],
+    countries: countries,
     categories: [
         { name: 'Shirts' }, { name: 'Pants' }, { name: 'Dress' }, { name: 'Coats' }, { name: 'Blazer' }, { name: 'Knit' }, { name: 'Jeans' }, { name: 'Skirts' }, { name: 'Jackets' }, { name: 'Suits' }, { name: 'Overshirts' }, { name: 'Hoodies' }, { name: 'T-Shirts' }
     ],

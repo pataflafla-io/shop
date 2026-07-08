@@ -1,4 +1,4 @@
-import { PrismaClient, Prisma, ProductImage } from '../app/generated/prisma/client';
+import { PrismaClient, Prisma } from '../app/generated/prisma/client';
 import { PrismaPg } from "@prisma/adapter-pg";
 import "dotenv/config";
 import { initialData } from "./seedData";
@@ -19,6 +19,9 @@ const categoryData: Prisma.CategoryCreateInput[] = [
     ...initialData.categories
 ]
 
+const countryData: Prisma.CountryCreateInput[] = [
+    ...initialData.countries
+]
 
 export async function main() {
 
@@ -29,10 +32,18 @@ export async function main() {
     await prisma.productImage.deleteMany()
     await prisma.product.deleteMany()
     await prisma.category.deleteMany()
-    await prisma.user.deleteMany();
+    await prisma.userAddress.deleteMany()
+    await prisma.country.deleteMany()
+    await prisma.user.deleteMany()
 
     // Creo usuarios
     await prisma.user.createMany({ data: userData });
+
+
+    // Creo paises
+    await prisma.country.createMany({
+        data: countryData
+    })
 
     //Creo categorías
     for (const category of categoryData) {

@@ -29,11 +29,6 @@ enum Gender {
   unisex
 }
 
-enum Role {
-  admin
-  user
-}
-
 model Category {
   id   String @id @default(uuid())
   name String @unique
@@ -70,6 +65,11 @@ model ProductImage {
   productId String
 }
 
+enum Role {
+  admin
+  user
+}
+
 model User {
   id            String    @id @default(uuid())
   name          String
@@ -78,4 +78,33 @@ model User {
   password      String
   role          Role      @default(user)
   image         String?
+
+  // Relación 1 a 1
+  userAddresses UserAddress?
+}
+
+model Country {
+  id   String @id @unique
+  name String
+
+  // Relación 1 a muchos
+  userAddresses UserAddress[]
+}
+
+model UserAddress {
+  id        String  @id @default(uuid())
+  firstName String
+  lastName  String
+  address   String
+  address2  String?
+  city      String
+  zipCode   String
+  phone     String
+
+  // Relaciones 
+  country   Country @relation(fields: [countryId], references: [id])
+  countryId String
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String @unique
 }
