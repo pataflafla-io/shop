@@ -80,9 +80,9 @@ body {
 }
 
 .btn-primary {
-  @apply bg-brand-orange hover:bg-brand-seaweed text-white py-2 px-4 rounded transition-all duration-200;
+  @apply bg-brand-orange hover:bg-brand-seaweed text-white py-2 px-4 rounded transition-all duration-500;
 }
 
 .btn-secondary {
-  @apply bg-gray-200 hover:bg-gray-300 text-black py-2 px-4 rounded transition-all;
+  @apply bg-gray-200 hover:bg-gray-300 text-black py-2 px-4 rounded transition-all duration-500;
 }
