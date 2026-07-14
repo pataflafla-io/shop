@@ -1,7 +1,6 @@
 'use client'
 import { PageNotFound } from "@/components/ui";
 
-
 interface Props {
     error: Error
 }
