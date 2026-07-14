@@ -1,17 +1,18 @@
-'use client'
+'use client';
 
+import { removeUserAddress } from '@/app/actions/address/removeUserAddress';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form'
-import { setUserAdddress, deleteUserAddress } from '@/app/actions';
+
 import { useAddressStore } from '@/store';
 import { Address, Country } from '@/interfaces';
 import clsx from 'clsx';
 
 interface Props {
     countries: Country[],
-    userStoredAddress?: Partial<Address>;
+    userStoredAddress?: Address;
 }
 
 type FormInputs = {
@@ -26,9 +27,9 @@ type FormInputs = {
     rememberAddress: boolean;
 }
 
-export const AddressForm = ({ countries, userStoredAddress = {} }: Props) => {
+export const AddressForm = ({ countries, userStoredAddress }: Props) => {
 
-    // La ruta está protegida; además, pasando required en true, 
+    // La ruta está protegida. Pasando required en true, 
     // redireccionamos a la págona de login en caso de que la
     // session esté nula, y de esa forma obtengo el id del usuario
     // el cual es necesario para pasar a los server actions
@@ -82,22 +83,23 @@ export const AddressForm = ({ countries, userStoredAddress = {} }: Props) => {
 
 
     const onSubmit = async (data: FormInputs) => {
-        // Guardo el formulario en la store y lo persisto
-        setAddressStore(data);
-
         // Desestructuro la data del formulario ya que el schema de la bd
         // no tiene el campo rememberAddress
         const { rememberAddress, ...rest } = data;
+
+        // Guardo el formulario en la store y lo persisto
+        setAddressStore(rest);
 
         // En este punto, el id del user es seguro que existe
         const userId = session!.user.id
 
         if (data.rememberAddress) {
-            // Llamo al server action para impactar la bd si el checkbox está checked
-            await setUserAdddress(rest, userId)
+            // Si el checkbox está checked; entonces, llamo al server action para impactar la bd 
+            //await setUserAdddress(rest, userId)
         } else {
-            // Elimino la dirección de la bd si no está checked
-            await deleteUserAddress(userId)
+            // De lo contrario, elimino la dirección de la bd si no está checked.
+            // La data persiste en el localStorage del browser.
+            await removeUserAddress(userId)
         }
         router.push('/checkout')
     }
@@ -185,7 +187,6 @@ export const AddressForm = ({ countries, userStoredAddress = {} }: Props) => {
                             className="before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-md border border-blue-gray-200 transition-all duration-300 before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-brand-burnt-peach checked:bg-brand-golden-orange checked:before:bg-brand-burnt-peach hover:before:opacity-10"
                             id="checkbox"
                             {...register('rememberAddress')}
-                        //                        checked
                         />
                         <div className="pointer-events-none absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 text-white opacity-0 transition-opacity peer-checked:opacity-100">
                             <svg
@@ -210,8 +211,8 @@ export const AddressForm = ({ countries, userStoredAddress = {} }: Props) => {
                     disabled={!isValid}
                     type="submit"
                     className={clsx(
-                        { "btn-primary flex w-full sm:w-1/2 justify-center": isValid },
-                        { "btn-secondary flex w-full sm:w-1/2 justify-center": !isValid }
+                        { "btn-primary flex w-full sm:w-fit justify-center": isValid },
+                        { "btn-secondary flex w-full sm:w-fit justify-center": !isValid }
                     )}>
                     Next
                 </button>
