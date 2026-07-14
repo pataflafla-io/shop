@@ -1,6 +1,6 @@
 export interface SeedUser {
-    email: string;
-    name: string;
-    password: string;
-    role: 'admin' | 'user'
+  email: string;
+  name: string;
+  password: string;
+  role: 'admin' | 'user';
 }
