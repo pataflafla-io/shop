@@ -1,5 +1,3 @@
-export * from './auth/login'
-export * from './auth/logout'
-export * from './auth/register'
+export * from './address/getUserAddress'
 export * from './products/getProductBySlug'
-export * from './products/pagination'
+export * from './products/doPagination'
