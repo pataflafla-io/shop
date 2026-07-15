@@ -1,14 +1,39 @@
 # Pataflafla.io | eCommerce
 
+> **Building software is one expression of my curiosity.**
+
 I've always been fascinated by how things work and how they can be improved.
 
-Building software is one expression of that curiosity.
+This project is a complete eCommerce application built from scratch.
 
-This project is a complete eCommerce application built from scratch. It wasn't created to showcase every framework or library I've learned over the years—those change constantly. Instead, it reflects the way I like to build software: keeping systems maintainable, interfaces accessible, and solutions pragmatic enough to evolve over time.
+Rather than trying to showcase every framework or library I've learned over the years, this repository reflects something I consider far more valuable: ****how I approach software engineering.****
 
-My goal wasn't simply to make an online store work. I wanted to build something that another developer could pick up months later and still enjoy working on.
+I enjoy building systems that are easy to understand, pleasant to maintain, and pragmatic enough to evolve over time.
 
-## Stack
+The goal wasn't simply to make an online store work.
+
+It was to build a project that another developer could clone months later, understand quickly, and feel comfortable extending.
+
+Along the way, I found myself doing what software engineering often requires beyond the "happy path": reading official documentation, investigating GitHub issues, dealing with version differences, and solving problems that only appear once a project starts behaving like a real application.
+
+Those moments became the most valuable part of the journey.
+
+## Features
+
+- Product catalog
+- Product details
+- Shopping cart
+- Authentication
+- Role-based authorization
+- Checkout flow
+- Order management
+- Admin dashboard
+- Database persistence
+- Responsive interface
+
+> **Features may evolve as the project continues to grow.**
+
+## Tech Stack
 
 - Next.js
 - Prisma
@@ -17,32 +42,103 @@ My goal wasn't simply to make an online store work. I wanted to build something 
 - Zod
 - Tailwind CSS
 
-## Getting Started
+## Engineering Notes
 
-1. Clone this repository.
-2. Copy `.env.template` to `.env` and configure the environment variables.
-3. Install dependencies:
-   `bash npm install `
-4. Start the database:
-   `bash docker compose up -d`
-5. Run the database migrations:
-   `bash npx prisma migrate dev`
-6. Seed the database:
-   `bash npm run seed`
-7. Start the development server:
-   `bash npm run dev`
+This repository intentionally keeps a relatively simple architecture while following practices that make the project easier to understand and maintain.
+
+Some of the principles behind it include:
+
+- Separation of concerns
+- Reusable UI components
+- Type safety
+- Clear Server/Client boundaries
+- Input validation
+- Maintainable folder structure
+- Consistent naming
+- Documentation where it adds value
+
+I believe building software is often less about writing code and more about understanding ****why**** things behave the way they do.
+
+## Lessons Learned
+
+Some takeaways from building this project:
+
+- Tutorials are an excellent starting point, but real learning begins when they stop working.
+- Reading the official documentation is often more valuable than searching for another tutorial.
+- Small architectural decisions can have a significant long-term impact.
+- Understanding the framework is more valuable than memorizing APIs.
+- Keeping things simple usually pays off.
+
+## Getting Started
 
 ### Requirements
 
 - Docker Desktop
+- Node.js
+- npm
 
-#### ToDo
+### Installation
 
-- Create a schedule script (1/2 hour?) once an order was placed, if payment wasn't realized in that frame time the cancel the order. In this case, stock availability needs to be updated after the payment
-- Send an email to the store manager once the payment was realized in order to prepare the delivery
-- Implement email validation for new users
-- Implement 2FA (BetterAuth)
-- Improve error messaging
-- Multilanguaje support
-- Integrate with other payment platforms (stripe, mercado pago, etc)
-- Improve theme styles with classes
+1.  Clone this repository.
+2.  Copy the environment template.
+
+cp .env.template .env
+
+3.  Install dependencies.
+
+npm install
+
+4.  Start the database.
+
+docker compose up -d
+
+5.  Run database migrations.
+
+npx prisma migrate dev
+
+6.  Seed the database.
+
+npm run seed
+
+7.  Start the development server.
+
+npm run dev
+
+## Roadmap
+
+Some ideas I'd like to continue working on:
+
+- Payment expiration workflow
+- Store notification emails
+- Email verification
+- Two-factor authentication (BetterAuth)
+- Improve error handling and messaging
+- Multi-language support
+- Additional payment providers (Stripe, Mercado Pago, etc.)
+- Theme improvements and UI polish
+
+## Feedback & Contributions
+
+No software is ever truly finished, and this project is no exception.
+
+There are probably edge cases I haven't encountered yet, implementation details that could be improved, or architectural decisions worth revisiting.
+
+If you find a bug, notice something that could be cleaner, or simply have an idea to improve the project, I'd genuinely appreciate hearing from you.
+
+Feel free to:
+
+- Open an Issue
+- Start a Discussion
+- Submit a Pull Request
+
+Software improves through collaboration, not perfection.
+
+If we can make this project better together, even better.
+
+## Final Thoughts
+
+This repository represents more than a working eCommerce application.
+
+It reflects how I like to build software: with curiosity, attention to detail, maintainability, and the understanding that every project is an opportunity to keep learning.
+
+Thanks for stopping by.
