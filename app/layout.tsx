@@ -1,14 +1,14 @@
-import type { Metadata } from "next";
-import { AuthSessionProvider } from "@/providers/AuthSessionProvider";
-import { inter } from "@/config/fonts"
-import "./globals.css";
+import { inter } from '@/config/fonts';
+import { Providers } from '@/providers/providers';
+import type { Metadata } from 'next';
+import './globals.css';
 
 export const metadata: Metadata = {
   title: {
     template: '%s - pataflafla.io',
-    default: 'home - pataflafla.io'
+    default: 'home - pataflafla.io',
   },
-  description: "Tienda de productos",
+  description: 'Tienda de productos',
 };
 
 export default async function RootLayout({
@@ -17,14 +17,9 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${inter.variable} h-full antialiased`}
-    >
+    <html lang="en" className={`${inter.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col">
-        <AuthSessionProvider>
-          {children}
-        </AuthSessionProvider>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
