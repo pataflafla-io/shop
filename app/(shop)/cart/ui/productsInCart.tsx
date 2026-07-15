@@ -20,7 +20,7 @@ export const ProductsInCart = () => {
     const updateQuantityInCart = useCartStore(state => state.updateProductQuantity)
     const removeProductFromCart = useCartStore(state => state.removeProductFromCart)
 
-    if (productsInCart.length === 0) {
+    if (productsInCart.length === 0 && !isLoading) {
         redirect('/empty')
     }
 
