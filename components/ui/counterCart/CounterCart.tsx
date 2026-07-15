@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useCartStore } from '@/store';
-import { useGenderSection } from '@/store/ui/genderSectiob.store';
+import { useGenderSection } from '@/store/ui/genderSection.store';
 import { IoCartOutline } from 'react-icons/io5';
 import { useShallow } from 'zustand/react/shallow';
 
