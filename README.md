@@ -4,7 +4,7 @@
 
 I've always been fascinated by how things work and how they can be improved.
 
-This project is a complete eCommerce application built from scratch.
+This project is a complete eCommerce application built from scratch.  
 Rather than trying to showcase every framework or library I've learned over the years, this repository reflects something I consider far more valuable: ****how I approach software engineering.****
 
 I enjoy building systems that are easy to understand, pleasant to maintain, and pragmatic enough to evolve over time.
@@ -119,7 +119,7 @@ Feel free to:
 - Submit a Pull Request
 
 Software improves through collaboration, not perfection.  
-If we can make this project better together, even better.
+If we can make this project better together, even better ♥️
 
 ## Final Thoughts
 
