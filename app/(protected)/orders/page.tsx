@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
-import { getOrdersBySessionUser } from '@/app/actions/order/getOrdersByUser';
+import { getOrdersBySessionUser } from '@/app/actions/order/getOrdersBySessionUser';
 import { IoCardOutline } from 'react-icons/io5';
 import { Title } from '@/components/ui';
 
@@ -12,7 +12,7 @@ export default async function () {
   if (!success && message === 'Session not found') {
     redirect('/auth/login');
   }
-  console.log('ORDERS', orders);
+
   return (
     <>
       <Title title="Orders" subtitle="Purchase list" />
@@ -20,28 +20,16 @@ export default async function () {
         <table className="min-w-full">
           <thead className="border-b border-gray-200 bg-gray-200">
             <tr>
-              <th
-                scope="col"
-                className="px-6 py-4 text-left text-sm font-medium text-gray-900"
-              >
+              <th scope="col" className="px-6 py-4 text-left text-sm font-medium text-gray-900">
                 #ID
               </th>
-              <th
-                scope="col"
-                className="px-6 py-4 text-left text-sm font-medium text-gray-900"
-              >
+              <th scope="col" className="px-6 py-4 text-left text-sm font-medium text-gray-900">
                 Who receives?
               </th>
-              <th
-                scope="col"
-                className="px-6 py-4 text-left text-sm font-medium text-gray-900"
-              >
+              <th scope="col" className="px-6 py-4 text-left text-sm font-medium text-gray-900">
                 Purchase date
               </th>
-              <th
-                scope="col"
-                className="px-6 py-4 text-left text-sm font-medium text-gray-900"
-              >
+              <th scope="col" className="px-6 py-4 text-left text-sm font-medium text-gray-900">
                 Is paid?
               </th>
             </tr>
