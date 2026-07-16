@@ -109,7 +109,7 @@ No software is ever truly finished, and this project is no exception.
 
 There are probably edge cases I haven't encountered yet, implementation details that could be improved, or architectural decisions worth revisiting.
 
-If you find a bug, notice something that could be cleaner, or simply have an idea to improve the project.
+If you find a bug, notice something that could be cleaner, or simply have an idea to improve the project.  
 I'd genuinely appreciate hearing from you.
 
 Feel free to:
@@ -123,7 +123,6 @@ If we can make this project better together, even better.
 
 ## Final Thoughts
 
-This repository represents more than a working eCommerce application.  
-It reflects how I like to build software: with curiosity, attention to detail, maintainability, and the understanding that every project is an opportunity to keep learning.
+This repository represents more than a working eCommerce application, it reflects how I like to build software: with curiosity, attention to detail, maintainability, and the understanding that every project is an opportunity to keep learning.
 
 Thanks for stopping by 🙏🏼
