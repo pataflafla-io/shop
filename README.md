@@ -118,12 +118,12 @@ Feel free to:
 - Start a Discussion
 - Submit a Pull Request
 
-Software improves through collaboration, not perfection.
+Software improves through collaboration, not perfection.  
 If we can make this project better together, even better.
 
 ## Final Thoughts
 
-This repository represents more than a working eCommerce application.
+This repository represents more than a working eCommerce application.  
 It reflects how I like to build software: with curiosity, attention to detail, maintainability, and the understanding that every project is an opportunity to keep learning.
 
 Thanks for stopping by 🙏🏼
