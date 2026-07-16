@@ -1,18 +1,13 @@
-import { redirect } from "next/navigation";
-import { auth } from "@/auth.config";
+import { Suspense } from 'react';
+import { Header } from '@/components/ui';
+import { Loader } from '@/components/ui/loader/Loader';
 
-export default async function AuthLayout({ children }: { children: React.ReactNode; }) {
-
-    const session = await auth();
-    if (session?.user) {
-        redirect("/")
-    }
-
-    return (
-        <main className="flex justify-center">
-            <div className="w-full sm:w-87.5 px-5">
-                {children}
-            </div>
-        </main>
-    );
+export default function AuthLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <main className="min-h-screen">
+      <Suspense fallback={<Loader />}>
+        <div className="flex justify-center items-center px-5">{children}</div>
+      </Suspense>
+    </main>
+  );
 }
