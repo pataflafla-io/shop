@@ -2,7 +2,6 @@
 
 import { auth } from '@/auth.config';
 import prisma from '@/lib/prisma';
-import { UserAddress } from '../../generated/prisma/browser';
 
 export const getOrdersBySessionUser = async () => {
   try {
