@@ -1,5 +1,4 @@
 import { Suspense } from 'react';
-import { Header } from '@/components/ui';
 import { Loader } from '@/components/ui/loader/Loader';
 
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
