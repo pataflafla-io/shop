@@ -1,6 +1,6 @@
 import { cacheLife } from 'next/cache';
 import { redirect } from 'next/navigation';
-import { getPaginatedProductsWithImages } from '@/app/actions';
+import { getPaginatedProductsWithImages } from '@/app/actions/server';
 import { ProductsGrid } from '@/components';
 import { Pagination, Title } from '@/components/ui';
 
