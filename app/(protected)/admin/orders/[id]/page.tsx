@@ -2,7 +2,6 @@ import { redirect } from 'next/navigation';
 import { getOrderById } from '@/app/actions/order/getOrderById';
 import { OrderDetail, OrderedItems, OrderStatus } from '@/components/orders';
 import { Title } from '@/components/ui';
-import { PayPalButton } from '@/components/ui/paypalbutton/PayPalButton';
 
 interface Props {
   params: {
@@ -30,14 +29,14 @@ export default async function ({ params }: Props) {
 
   return (
     <div className="mb-20 flex items-center justify-center px-10 sm:px-0">
-      <div className="flex w-250 flex-col">
+      <div className="flex flex-col p-7 w-250 rounded-xl bg-white shadow-xl ">
         <Title title={`Order #${id}`} />
-        <div className="mt-10 grid grid-cols-1 gap-10 sm:grid-cols-2">
+        <div className="mt-5 grid grid-cols-1 gap-10 sm:grid-cols-2">
           <div className="mt-1 flex flex-col">
             <OrderStatus isPaid={isPaid ?? false} />
             <OrderedItems order={orderItems} />
           </div>
-          <div className="rounded-xl bg-white p-7 shadow-xl">
+          <div>
             <OrderDetail
               address={address}
               subTotal={subtotal}
@@ -45,13 +44,6 @@ export default async function ({ params }: Props) {
               total={total}
               totalItems={itemsToOrder}
             />
-            <div className="mt-10 w-full">
-              {isPaid ? (
-                <OrderStatus isPaid={isPaid ?? false} />
-              ) : (
-                <PayPalButton amount={`${total}`} orderId={`${id}`}></PayPalButton>
-              )}
-            </div>
           </div>
         </div>
       </div>

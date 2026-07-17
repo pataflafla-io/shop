@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { getPaginatedOrders } from '@/app/actions/server/order/getPaginatedOrders';
+import { auth } from '@/auth.config';
 import { IoCardOutline } from 'react-icons/io5';
 import { Pagination, Title } from '@/components/ui';
 
@@ -15,6 +16,11 @@ const getPagination = async (page: number) => {
 };
 
 export default async function ({ searchParams }: Props) {
+  const session = await auth();
+  if (session?.user.role !== 'admin') {
+    redirect('/');
+  }
+
   const { page } = await searchParams;
   const pageNumber = page ? parseInt(page) : 1;
 
@@ -54,7 +60,7 @@ export default async function ({ searchParams }: Props) {
                   colSpan={4}
                   className="text-center px-6 py-4 text-sm font-medium whitespace-nowrap text-gray-900"
                 >
-                  <p>You haven't orders.</p>
+                  <p>Nobody's haven't purchased anything yet.</p>
                 </td>
               </tr>
             ) : (
@@ -64,7 +70,7 @@ export default async function ({ searchParams }: Props) {
                   className="border-b border-gray-200 bg-white transition duration-300 ease-in-out hover:bg-gray-100"
                 >
                   <td className="px-6 py-4 text-sm font-medium whitespace-nowrap text-gray-900">
-                    <Link href={`/orders/${order.id}`}>{order.id}</Link>
+                    <Link href={`/admin/orders/${order.id}`}>{order.id}</Link>
                   </td>
                   <td className="px-6 py-4 text-sm font-medium whitespace-nowrap text-gray-900">
                     {order.orderAddresses?.firstName} {order.orderAddresses?.lastName}
