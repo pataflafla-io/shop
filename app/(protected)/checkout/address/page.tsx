@@ -23,8 +23,8 @@ export default async function CheckoutAdressPage() {
   const countries = await getCountries();
   return (
     <Suspense fallback="CARGAND">
-      <div className="flex flex-col sm:justify-center sm:items-center mb-30 px-10 sm:px-0">
-        <div className="w-full xl:w-250 flex flex-col justify-center text-left">
+      <div className="flex flex-col sm:justify-center sm:items-center mb-20 px-10 sm:px-0">
+        <div className="w-full flex flex-col justify-center text-left">
           <Title title="Delivery address" subtitle="and who is receiving the purchase?" />
           <AddressForm countries={countries} userStoredAddress={storedAddress} />
         </div>

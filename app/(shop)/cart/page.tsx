@@ -6,7 +6,7 @@ import { ProductsInCart } from './ui/productsInCart';
 export default function () {
   return (
     <div className="flex justify-center items-center mb-20 px-10 sm:px-0">
-      <div className="flex flex-col w-250">
+      <div className="flex flex-col w-full">
         <Title title="Cart" />
         <span>
           Do you{' '}
@@ -15,7 +15,7 @@ export default function () {
           </Link>{' '}
           anything else?
         </span>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 mt-2">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 mt-10">
           <div className="flex flex-col mt-2">
             <ProductsInCart />
           </div>

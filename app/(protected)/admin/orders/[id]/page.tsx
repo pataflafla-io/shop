@@ -29,7 +29,7 @@ export default async function ({ params }: Props) {
 
   return (
     <div className="mb-20 flex items-center justify-center px-10 sm:px-0">
-      <div className="flex flex-col p-7 w-250 rounded-xl bg-white shadow-xl ">
+      <div className="flex flex-col p-7 w-full rounded-xl bg-white shadow-xl ">
         <Title title={`Order #${id}`} />
         <div className="mt-5 grid grid-cols-1 gap-10 sm:grid-cols-2">
           <div className="mt-1 flex flex-col">
