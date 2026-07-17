@@ -1,7 +1,7 @@
 import { cacheLife } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { Suspense } from 'react';
-import { getPaginatedProductsWithImages } from '@/app/actions/products/doPagination';
+import { getPaginatedProductsWithImages } from '@/app/actions/products/getPaginatedProductsWithImages';
 import { ProductsGrid } from '@/components';
 import { Gender } from '@/interfaces';
 import { Pagination, Title } from '@/components/ui';
