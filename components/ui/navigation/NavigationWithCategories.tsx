@@ -11,7 +11,7 @@ import clsx from 'clsx';
 import { useSession } from 'next-auth/react';
 import { CounterCart } from '../counterCart/CounterCart';
 
-export const TopMenu = () => {
+export const NavigationWithCategories = () => {
   const [isHydrated, setIsHydrated] = useState(false);
   useEffect(() => setIsHydrated(true), []);
 
@@ -36,8 +36,8 @@ export const TopMenu = () => {
             src="/imgs/logo.png"
             width={64}
           />
-          <span className={`${titleFont.className} font-bold antialiased`}>pataflafla</span>
-          <span className={`${titleFont.className} antialiased`}>.io</span>
+          <span className={`${titleFont.className} font-bold antialiased`}>demoshop</span>
+          <span className={`${titleFont.className} antialiased`}>@pataflafla.io</span>
         </Link>
       </div>
       {
