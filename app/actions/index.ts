@@ -1,3 +1,3 @@
-export * from './address/getUserAddress'
-export * from './products/getProductBySlug'
-export * from './products/doPagination'
+export * from './address/getUserAddress';
+export * from './products/getPaginatedProductsWithImages';
+export * from './products/getProductBySlug';
