@@ -1,8 +1,4 @@
-# Pataflafla.io | eCommerce
-
-> **Building software is one expression of my curiosity.**
-
-I've always been fascinated by how things work and how they can be improved.
+# pataflafla.io | ecommerce
 
 This project is a complete eCommerce application built from scratch.  
 Rather than trying to showcase every framework or library I've learned over the years, this repository reflects something I consider far more valuable: ****how I approach software engineering.****
