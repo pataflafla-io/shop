@@ -34,8 +34,8 @@ export default async function ({ searchParams }: Props) {
 
   return (
     <>
-      <Title title="Orders" subtitle="Purchase list" />
-      <div className="mb-20 overflow-hidden rounded-lg shadow-xl">
+      <Title title="Everyone's orders" />
+      <div className="mt-6 mb-20 overflow-hidden rounded-lg shadow-xl">
         <table className="min-w-full">
           <thead className="border-b border-gray-200 bg-gray-200">
             <tr>
