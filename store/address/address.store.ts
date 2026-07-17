@@ -12,6 +12,7 @@ interface State {
     country: string;
     phone: string;
   };
+  clearAddress: () => void;
   setAddress: (address: State['address']) => void;
   _hasHydrated: boolean;
   _setHasHydrated: (isHydrated: boolean) => void;
@@ -19,7 +20,7 @@ interface State {
 
 export const useAddressStore = create<State>()(
   persist(
-    (set, get) => ({
+    (set) => ({
       address: {
         firstName: '',
         lastName: '',
@@ -32,6 +33,20 @@ export const useAddressStore = create<State>()(
       },
       setAddress: (address) => {
         set({ address });
+      },
+      clearAddress: () => {
+        set({
+          address: {
+            firstName: '',
+            lastName: '',
+            address: '',
+            address2: '',
+            zipCode: '',
+            city: '',
+            country: '',
+            phone: '',
+          },
+        });
       },
       _hasHydrated: false,
       _setHasHydrated: (isHydrated) => {
