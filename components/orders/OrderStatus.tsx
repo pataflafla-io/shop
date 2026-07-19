@@ -14,7 +14,7 @@ export const OrderStatus = ({ isPaid }: Props) => {
       })}
     >
       <IoCartOutline size={30} />
-      <span className="mx-2">{isPaid ? 'Pagada' : 'Pendiente'}</span>
+      <span className="mx-2">{isPaid ? 'Paid' : 'Not paid'}</span>
     </div>
   );
 };
