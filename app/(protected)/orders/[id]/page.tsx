@@ -1,5 +1,6 @@
 import { redirect } from 'next/navigation';
 import { getOrderById } from '@/app/actions/order/getOrderById';
+import { auth } from '@/auth.config';
 import { OrderDetail, OrderedItems, OrderStatus } from '@/components/orders';
 import { Title } from '@/components/ui';
 import { PayPalButton } from '@/components/ui/paypalbutton/PayPalButton';
@@ -11,22 +12,24 @@ interface Props {
 }
 
 export default async function ({ params }: Props) {
+  const session = await auth();
+  if (!session?.user) {
+    redirect('/auth/login');
+  }
+
   const { id } = await params;
 
-  const { success, result } = await getOrderById(id);
-  if (!success) {
-    redirect('/');
-  }
+  const { order } = await getOrderById(id);
 
   // Si bien el el address está definido como opcional en la bd,
   // en este punto siempre debería de existir una; de lo contrario,
   // ¿a dónde se realizó el envío?
-  const address = result!.address;
+  const address = order!.address;
 
   // ... lo mismo con el resto de propiedades que vienen en la orden;
   // el server action se encargó de realizar las validaciones
   // correspondientes.
-  const { itemsToOrder, subtotal, tax, total, orderItems, isPaid } = result!;
+  const { itemsToOrder, subtotal, tax, total, orderItems, isPaid } = order!;
 
   return (
     <div className="mb-20 flex items-center justify-center px-10 sm:px-0">

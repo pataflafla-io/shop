@@ -56,8 +56,8 @@ export const getOrderById = async (id: string) => {
       }
     }
 
-    // El campo opcional es Prisma se maneja diferente al campo opcional en TS.
-    // por eso la pisada.
+    // El campo opcional es Prisma se maneja diferente al campo opcional
+    // en TS por eso la pisada.
     const { orderAddresses, ...restOrder } = order;
     const { address2, countryId, ...restAddress } = orderAddresses!;
     const address = {
@@ -73,7 +73,7 @@ export const getOrderById = async (id: string) => {
 
     return {
       success: true,
-      result: orderWithTSInterfaceCompatibility,
+      order: orderWithTSInterfaceCompatibility,
     };
   } catch (error) {
     return {

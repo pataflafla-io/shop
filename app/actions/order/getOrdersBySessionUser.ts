@@ -7,7 +7,7 @@ export const getOrdersBySessionUser = async () => {
   try {
     const session = await auth();
     if (!session?.user) {
-      throw 'Session not found';
+      throw 'You need to be logged in order to user this server action.';
     }
 
     const getOrders = await prisma.order.findMany({

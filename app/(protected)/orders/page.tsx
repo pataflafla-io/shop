@@ -1,17 +1,17 @@
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { getOrdersBySessionUser } from '@/app/actions/order/getOrdersBySessionUser';
+import { auth } from '@/auth.config';
 import { IoCardOutline } from 'react-icons/io5';
 import { Title } from '@/components/ui';
 
 export default async function () {
-  const { success, message, orders } = await getOrdersBySessionUser();
-
-  // @todo: enumerar mensajes de posibles errores para tener
-  // redirects granulares
-  if (!success && message === 'Session not found') {
+  const session = await auth();
+  if (!session?.user) {
     redirect('/auth/login');
   }
+
+  const { orders } = await getOrdersBySessionUser();
 
   return (
     <>
@@ -35,7 +35,7 @@ export default async function () {
             </tr>
           </thead>
           <tbody>
-            {!orders?.length ? (
+            {!orders ? (
               <tr className="border-b border-gray-200 bg-white transition duration-300 ease-in-out hover:bg-gray-100">
                 <td
                   colSpan={4}
