@@ -98,6 +98,8 @@ Some ideas I'd like to continue working on:
 - Multi-language support
 - Additional payment providers (Stripe, Mercado Pago, etc.)
 - Theme improvements and UI polish
+- Improve User mantainance (user blocking, etc)
+- Implement User Profile
 
 ## Feedback & Contributions
 
