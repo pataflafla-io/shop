@@ -2,9 +2,10 @@
 
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { setPlaceOrder } from '@/app/actions/client';
-import { useAddressStore, useCartStore } from '@/store';
-import { currencyFormat } from '@/utils';
+import { setPlaceOrder } from '@/app/actions/order/setPlaceOrder';
+import { useAddressStore } from '@/store/address/address.store';
+import { useCartStore } from '@/store/cart/cart.store';
+import { currencyFormat } from '@/utils/currencyFormat';
 import clsx from 'clsx';
 import { useShallow } from 'zustand/react/shallow';
 
@@ -106,10 +107,10 @@ export const PlaceOrder = () => {
               onClick={onPlaceOrder}
               className={clsx(
                 {
-                  'btn-primary flex w-1/2 w-full justify-center sm:w-fit': !isOrderPlaced,
+                  'btn-primary flex w-full justify-center sm:w-fit': !isOrderPlaced,
                 },
                 {
-                  'btn-secondary flex w-1/2 w-full justify-center sm:w-fit': isOrderPlaced,
+                  'btn-secondary flex w-full justify-center sm:w-fit': isOrderPlaced,
                 }
               )}
             >
@@ -120,7 +121,7 @@ export const PlaceOrder = () => {
                   : 'Your order has been placed'}
             </button>
             {errorMessage && (
-              <p className="fade-in border-brand-burnt-peach text-brand-burnt-peach mt-4 mb-2 border border-2 p-2">
+              <p className="fade-in border-brand-burnt-peach text-brand-burnt-peach mt-4 mb-2 border-2 p-2">
                 {errorMessage}
               </p>
             )}

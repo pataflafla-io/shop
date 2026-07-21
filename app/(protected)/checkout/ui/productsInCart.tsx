@@ -1,9 +1,8 @@
 'use client';
 
 import Image from 'next/image';
-import { redirect } from 'next/navigation';
-import { useCartStore } from '@/store';
-import { currencyFormat } from '@/utils';
+import { useCartStore } from '@/store/cart/cart.store';
+import { currencyFormat } from '@/utils/currencyFormat';
 
 export const ProductsInCart = () => {
   const productsInCart = useCartStore((state) => state.cart);

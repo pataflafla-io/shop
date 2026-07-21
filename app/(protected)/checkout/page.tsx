@@ -1,9 +1,16 @@
 import Link from 'next/link';
-import { Title } from '@/components/ui';
+import { redirect } from 'next/navigation';
+import { auth } from '@/auth.config';
+import { Title } from '@/components/ui/title/Title';
 import { PlaceOrder } from './ui/placeOrder';
 import { ProductsInCart } from './ui/productsInCart';
 
-export default function () {
+export default async function () {
+  const session = await auth();
+  if (!session?.user) {
+    redirect('/auth/login');
+  }
+
   return (
     <div className="flex justify-center items-center mb-20 px-10 sm:px-0">
       <div className="flex flex-col w-full">
