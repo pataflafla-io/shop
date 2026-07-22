@@ -1,7 +1,8 @@
 'use server';
 
 import { auth } from '@/auth.config';
-import type { Address, Size } from '@/interfaces';
+import type { Address } from '@/interfaces/address.interface';
+import type { Size } from '@/interfaces/product.interface';
 import prisma from '@/lib/prisma';
 
 interface PlacedOrder {

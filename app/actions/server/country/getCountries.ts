@@ -1,6 +1,6 @@
 'use server';
 
-import { Country } from '@/interfaces';
+import { Country } from '@/interfaces/country.interface';
 import prisma from '@/lib/prisma';
 
 export const getACountries = async (): Promise<Country[]> => {
