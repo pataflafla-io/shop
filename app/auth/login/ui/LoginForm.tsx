@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { useActionState, useEffect } from 'react';
-import { authenticate } from '@/app/actions/client';
+import { authenticate } from '@/app/actions/auth/doLogin';
 import clsx from 'clsx';
 
 export const LoginForm = () => {

@@ -1,9 +1,10 @@
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
-import { getPaginatedOrders } from '@/app/actions/server/order/getPaginatedOrders';
+import { getPaginatedOrders } from '@/app/actions/order/getPaginatedOrders';
 import { auth } from '@/auth.config';
 import { IoCardOutline } from 'react-icons/io5';
-import { Pagination, Title } from '@/components/ui';
+import { Pagination } from '@/components/ui/pagination/Pagination';
+import { Title } from '@/components/ui/title/Title';
 
 interface Props {
   searchParams: {

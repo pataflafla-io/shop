@@ -1,7 +1,7 @@
 'use client';
 
-import { useCartStore } from '@/store';
-import { currencyFormat } from '@/utils';
+import { useCartStore } from '@/store/cart/cart.store';
+import { currencyFormat } from '@/utils/currencyFormat';
 import { useShallow } from 'zustand/react/shallow';
 
 export const CartSummary = () => {

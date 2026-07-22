@@ -3,10 +3,11 @@
 import { cacheLife } from 'next/cache';
 import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
-import { getProductBySlug } from '@/app/actions';
-import { ProductMobileSlideShow, ProductSlideShow } from '@/components';
+import { getProductBySlug } from '@/app/actions/products/getProductBySlug';
 import { titleFont } from '@/config/fonts';
 import { Metadata, ResolvingMetadata } from 'next';
+import { ProductMobileSlideShow } from '@/components/product/slideshow/ProductMobileSlideshow';
+import { ProductSlideShow } from '@/components/product/slideshow/ProductSlideshow';
 import { Loader } from '@/components/ui/loader/Loader';
 import { AddToCart } from './ui/addToCart';
 

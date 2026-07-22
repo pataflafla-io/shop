@@ -1,7 +1,9 @@
 import { Suspense } from 'react';
 import { Toaster } from 'sonner';
-import { Footer, NavigationWithCategories, Sidebar } from '@/components/ui';
+import { Footer } from '@/components/ui/footer/Footer';
 import { Loader } from '@/components/ui/loader/Loader';
+import { NavigationWithCategories } from '@/components/ui/navigation/NavigationWithCategories';
+import { Sidebar } from '@/components/ui/sidebar/Sidebar';
 
 export default function ShopLayout({ children }: { children: React.ReactNode }) {
   return (

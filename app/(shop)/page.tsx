@@ -1,8 +1,9 @@
 import { cacheLife } from 'next/cache';
 import { redirect } from 'next/navigation';
-import { getPaginatedProductsWithImages } from '@/app/actions/server';
-import { ProductsGrid } from '@/components';
-import { Pagination, Title } from '@/components/ui';
+import { getPaginatedProductsWithImages } from '@/app/actions/products/getPaginatedProductsWithImages';
+import { ProductsGrid } from '@/components/products/grid/ProductsGrid';
+import { Pagination } from '@/components/ui/pagination/Pagination';
+import { Title } from '@/components/ui/title/Title';
 
 interface Props {
   searchParams: {

@@ -2,7 +2,8 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-import { doRegister as createUser, doLogin } from '@/app/actions/client';
+import { doLogin } from '@/app/actions/auth/doLogin';
+import { doRegister as createUser } from '@/app/actions/auth/doRegister';
 import { clsx } from 'clsx';
 import { useForm } from 'react-hook-form';
 

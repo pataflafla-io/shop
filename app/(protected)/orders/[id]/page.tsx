@@ -2,8 +2,8 @@ import { redirect } from 'next/navigation';
 import { getOrderById } from '@/app/actions/order/getOrderById';
 import { auth } from '@/auth.config';
 import { OrderDetail, OrderedItems, OrderStatus } from '@/components/orders';
-import { Title } from '@/components/ui';
 import { PayPalButton } from '@/components/ui/paypalbutton/PayPalButton';
+import { Title } from '@/components/ui/title/Title';
 
 interface Props {
   params: {

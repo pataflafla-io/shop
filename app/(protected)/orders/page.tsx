@@ -3,7 +3,7 @@ import { redirect } from 'next/navigation';
 import { getOrdersBySessionUser } from '@/app/actions/order/getOrdersBySessionUser';
 import { auth } from '@/auth.config';
 import { IoCardOutline } from 'react-icons/io5';
-import { Title } from '@/components/ui';
+import { Title } from '@/components/ui/title/Title';
 
 export default async function () {
   const session = await auth();

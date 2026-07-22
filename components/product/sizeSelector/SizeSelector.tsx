@@ -1,4 +1,4 @@
-import type { Size } from '@/interfaces';
+import type { Size } from '@/interfaces/product.interface';
 import clsx from 'clsx';
 
 interface Props {

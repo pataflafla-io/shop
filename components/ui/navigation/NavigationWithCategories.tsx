@@ -5,11 +5,11 @@ import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { titleFont } from '@/config/fonts';
-import { useUIStore } from '@/store';
 import { useGenderSection } from '@/store/ui/genderSection.store';
+import { useUIStore } from '@/store/ui/sidebar.store';
 import clsx from 'clsx';
 import { useSession } from 'next-auth/react';
-import { CounterCart } from '../counterCart/CounterCart';
+import { CounterCart } from '@/components/ui/counterCart/CounterCart';
 
 export const NavigationWithCategories = () => {
   const [isHydrated, setIsHydrated] = useState(false);

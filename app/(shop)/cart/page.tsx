@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Title } from '@/components/ui';
+import { Title } from '@/components/ui/title/Title';
 import { CartSummary } from './ui/cartSummary';
 import { ProductsInCart } from './ui/productsInCart';
 

@@ -4,7 +4,7 @@ import { Suspense } from 'react';
 import { getUserAddress } from '@/app/actions/address/getUserAddress';
 import { getACountries } from '@/app/actions/country/getCountries';
 import { auth } from '@/auth.config';
-import { Address } from '@/interfaces';
+import { Address } from '@/interfaces/address.interface';
 import { Loader } from '@/components/ui/loader/Loader';
 import { Title } from '@/components/ui/title/Title';
 import { AddressForm } from './ui/addressForm';

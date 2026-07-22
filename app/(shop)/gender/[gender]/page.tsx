@@ -2,9 +2,10 @@ import { cacheLife } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { Suspense } from 'react';
 import { getPaginatedProductsWithImages } from '@/app/actions/products/getPaginatedProductsWithImages';
-import { ProductsGrid } from '@/components';
-import { Gender } from '@/interfaces';
-import { Pagination, Title } from '@/components/ui';
+import { Gender } from '@/interfaces/product.interface';
+import { ProductsGrid } from '@/components/products/grid/ProductsGrid';
+import { Pagination } from '@/components/ui/pagination/Pagination';
+import { Title } from '@/components/ui/title/Title';
 
 interface Props {
   params: {

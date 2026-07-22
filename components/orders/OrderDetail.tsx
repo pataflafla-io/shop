@@ -1,5 +1,5 @@
-import { Address } from '@/interfaces';
-import { currencyFormat } from '@/utils';
+import { Address } from '@/interfaces/address.interface';
+import { currencyFormat } from '@/utils/currencyFormat';
 
 interface Props {
   address: Address;

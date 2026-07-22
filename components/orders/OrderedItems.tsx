@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { Size } from '@/interfaces';
-import { currencyFormat } from '@/utils';
+import { Size } from '@/interfaces/product.interface';
+import { currencyFormat } from '@/utils/currencyFormat';
 
 interface Props {
   order: {
@@ -37,9 +37,7 @@ export const OrderedItems = ({ order }: Props) => {
             <p>
               {currencyFormat(item.price)} x {item.quantity}
             </p>
-            <p className="font-bold">
-              Subtotal: {currencyFormat(item.price * item.quantity)}
-            </p>
+            <p className="font-bold">Subtotal: {currencyFormat(item.price * item.quantity)}</p>
           </div>
         </div>
       ))}
