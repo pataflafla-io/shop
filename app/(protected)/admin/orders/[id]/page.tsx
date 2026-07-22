@@ -1,7 +1,7 @@
 import { redirect } from 'next/navigation';
 import { getOrderById } from '@/app/actions/order/getOrderById';
 import { OrderDetail, OrderedItems, OrderStatus } from '@/components/orders';
-import { Title } from '@/components/ui';
+import { Title } from '@/components/ui/title/Title';
 
 interface Props {
   params: {
