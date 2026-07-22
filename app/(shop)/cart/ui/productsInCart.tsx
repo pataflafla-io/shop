@@ -3,8 +3,10 @@
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { CartProduct } from '@/interfaces/product.interface';
 import { useCartStore } from '@/store/cart/cart.store';
 import { currencyFormat } from '@/utils/currencyFormat';
+import { toast } from 'sonner';
 import { ProductImage } from '@/components/product/productImage/ProductImage';
 import { QuantitySelector } from '@/components/product/quantitySelector/QuantitySelector';
 
@@ -19,6 +21,11 @@ export const ProductsInCart = () => {
   if (productsInCart.length === 0 && !isLoading) {
     redirect('/empty');
   }
+
+  const onRemoveItem = async (product: CartProduct) => {
+    await removeProductFromCart(product);
+    toast.success(<div>{product.title} was correctly removed.</div>);
+  };
 
   return (
     <>
@@ -46,7 +53,7 @@ export const ProductsInCart = () => {
                 quantity={product.quantity}
               />
               <button
-                onClick={() => removeProductFromCart(product)}
+                onClick={() => onRemoveItem(product)}
                 className="text-brand-burnt-peach hover:underline mt-3"
               >
                 remove
