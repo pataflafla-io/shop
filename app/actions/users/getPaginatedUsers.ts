@@ -14,7 +14,7 @@ export const getPaginatedUsers = async ({ page = 1, take = 12 }: PaginationOptio
   if (session?.user.role !== 'admin') {
     return {
       success: false,
-      message: 'You must be an admin user to use this action.',
+      message: 'You must be an admin user to use this server action.',
     };
   }
 
@@ -39,7 +39,7 @@ export const getPaginatedUsers = async ({ page = 1, take = 12 }: PaginationOptio
     ]);
 
     if (!users) {
-      throw "Retrieving users couldn't be fetched";
+      throw "Retrieving users couldn't be done.";
     }
 
     const usersPages = Math.ceil(countUsers / take);
