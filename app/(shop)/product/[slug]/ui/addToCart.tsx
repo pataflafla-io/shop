@@ -64,7 +64,10 @@ export const AddToCart = ({ product }: Props) => {
     setSelectedSize(undefined);
     toast.success(
       <div>
-        {product.title} was added to the <Link href="/cart">cart</Link>
+        {product.title} was added to the{' '}
+        <Link className="text-brand-burnt-peach hover:underline" href="/cart">
+          cart
+        </Link>
       </div>
     );
   };
@@ -91,7 +94,9 @@ export const AddToCart = ({ product }: Props) => {
             availableSizes={product.sizes}
           />
           {addedToCart && !selectedSize && (
-            <span className="fade-in text-brand-burnt-peach">Select a size, please.</span>
+            <span className="my-5 p-2 inline-block border-2 border-brand-burnt-peach text-center text-brand-burnt-peach">
+              Select a size, please.
+            </span>
           )}
           <QuantitySelector
             maxQuantity={product.inStock}
