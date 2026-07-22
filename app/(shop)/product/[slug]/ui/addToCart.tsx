@@ -3,20 +3,13 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { getStockBySlug } from '@/app/actions/products/getStockBySlug';
-import { QuantitySelector, SizeSelector } from '@/components';
 import { titleFont } from '@/config/fonts';
-import { CartProduct, Product, Size } from '@/interfaces';
-// La página ProductPage se mantiene en cache por 7 días
-// Este componente se usa para que esta sección no se mantenga
-// en cache si cambia en algún momento.
-// Esta misma estrategia se puede usar para cualquier elemento
-// de ProductPage (price, sizes, etc)
-
-import { useCartStore } from '@/store';
+import { CartProduct, Product, Size } from '@/interfaces/product.interface';
+import { useCartStore } from '@/store/cart/cart.store';
 import { useGenderSection } from '@/store/ui/genderSection.store';
-import { setCookie } from 'cookies-next';
 import { toast } from 'sonner';
-import { json } from 'zod';
+import { QuantitySelector } from '@/components/product/quantitySelector/QuantitySelector';
+import { SizeSelector } from '@/components/product/sizeSelector/SizeSelector';
 
 interface Props {
   product: Product;
