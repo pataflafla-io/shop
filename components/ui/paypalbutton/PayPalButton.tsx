@@ -1,5 +1,6 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { confirmPayPalPayment } from '@/app/actions/payments/confirmPayPalPayment';
 import { updateTransaction } from '@/app/actions/payments/updateOrderTransaction';
 // PayPalButtons documentation
@@ -11,6 +12,7 @@ import {
   OnApproveData,
 } from '@paypal/paypal-js';
 import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js';
+import { toast } from 'sonner';
 
 interface Props {
   orderId: string;
@@ -19,6 +21,8 @@ interface Props {
 
 export const PayPalButton = ({ orderId, amount }: Props) => {
   const [{ isPending }] = usePayPalScriptReducer();
+
+  const router = useRouter();
 
   const createOrder = async (
     data: CreateOrderData,
@@ -52,11 +56,15 @@ export const PayPalButton = ({ orderId, amount }: Props) => {
       return;
     }
 
-    const respon = await confirmPayPalPayment(details.id!);
-    console.log(respon);
+    const response = await confirmPayPalPayment(details.id!);
+    if (response) {
+      toast.success(<div>Order correctly paid.</div>);
+      router.replace('/orders');
+    }
   };
 
-  const onCancel = async () => {};
+  // @todo: implementer onError y onCancel para manejar
+  // otros escenarios desde PayPal
 
   if (isPending) {
     return (

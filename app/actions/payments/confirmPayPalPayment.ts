@@ -40,7 +40,6 @@ export const confirmPayPalPayment = async (transactionId: string) => {
   // podría manipular el frontend y hacer pasar como que
   // la orden ya fue paga.
   const invoice_id = purchase_units[0].invoice_id;
-  console.log('INVOICE ID!!', invoice_id);
   // ACTUALIZAR BD
   try {
     const updateOrder = await prisma.order.update({
@@ -60,6 +59,7 @@ export const confirmPayPalPayment = async (transactionId: string) => {
       };
     }
 
+    revalidatePath('/orders/');
     revalidatePath(`/orders/${invoice_id}`);
 
     return {
