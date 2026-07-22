@@ -1,18 +1,14 @@
 'use client';
 
-import Image from 'next/image';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { QuantitySelector } from '@/components';
-import { useCartStore } from '@/store';
-import { currencyFormat } from '@/utils';
+import { useCartStore } from '@/store/cart/cart.store';
+import { currencyFormat } from '@/utils/currencyFormat';
+import { ProductImage } from '@/components/product/productImage/ProductImage';
+import { QuantitySelector } from '@/components/product/quantitySelector/QuantitySelector';
 
 export const ProductsInCart = () => {
-  // Trick para evitar problemas de rehydratrion
-  // datdo que Zustand persite desde el lado del
-  // cliente, pero la página se renderiza del lado
-  // del servidor
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => setIsLoading(false), []);
 
@@ -33,12 +29,12 @@ export const ProductsInCart = () => {
             key={`${product.slug}-${product.size}`}
             className="flex mb-5"
           >
-            <Image
+            <ProductImage
               alt={product.title}
-              className="mr-5 rounded-lg"
-              height={100}
-              src={`/products/${product.image}`}
-              width={100}
+              className="mr-5 rounded-lg object-fill"
+              height={120}
+              src={product.image}
+              width={80}
             />
             <div>
               <Link className="cursor-pointer" href={`/product/${product.slug}`}>
