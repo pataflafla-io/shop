@@ -10,18 +10,16 @@ interface PlacedOrder {
   size: Size;
 }
 
-export const placeOrder = async (productsInCart: PlacedOrder[], address: Address) => {
+export const setPlaceOrder = async (productsInCart: PlacedOrder[], address: Address) => {
   // Se podría envíar el id del usuario desde el frontend, pero
   // dada su volatilidad, resulta más seguro obtenerlo de la session.
   const session = await auth();
   const userId = session?.user.id;
 
-  // Teoricamente, ésto no debería de suceder, si sucede es porque
-  // se está llamando a éste server action desde vaya saber donde.
   if (!userId) {
     return {
       success: false,
-      message: "There's no user session.",
+      message: 'You need to be logged in to use this server action',
     };
   }
 
@@ -50,7 +48,7 @@ export const placeOrder = async (productsInCart: PlacedOrder[], address: Address
   const totalItems = productsInCart.reduce((total, product) => total + product.quantity, 0);
 
   // Calculo tax, subTotal y total
-  // RECORDAR, NUNCA ESTÁ DE MÁS!
+  // RECORDAR!
   // Jamás realizar cálculos en el frontend, el cálculo puede ser maniupulado.
   // Para dichos cálculos usamos la consulta a la base de datos realizada más
   // arriba (asignada a products), en ella tenemos los precios garantizados.
