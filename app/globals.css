@@ -94,3 +94,7 @@ body {
 .btn-secondary {
   @apply rounded bg-gray-200 px-4 py-2 text-black transition-all duration-500 hover:bg-gray-300;
 }
+
+.btn-danger {
+  @apply bg-gray-200 text-black hover:bg-red-700 px-4 py-2 hover:text-white transition-all duration-500;
+}
