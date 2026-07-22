@@ -1,9 +1,12 @@
 import { cacheLife } from 'next/cache';
+import { redirect } from 'next/navigation';
 import { Suspense } from 'react';
-import { getACountries, getUserAddress } from '@/app/actions/server';
+import { getUserAddress } from '@/app/actions/address/getUserAddress';
+import { getACountries } from '@/app/actions/country/getCountries';
 import { auth } from '@/auth.config';
 import { Address } from '@/interfaces';
-import { Title } from '@/components/ui';
+import { Loader } from '@/components/ui/loader/Loader';
+import { Title } from '@/components/ui/title/Title';
 import { AddressForm } from './ui/addressForm';
 
 const getCountries = async () => {
@@ -17,12 +20,14 @@ const getCountries = async () => {
 
 export default async function CheckoutAdressPage() {
   const session = await auth();
+  if (!session?.user) {
+    redirect('/auth/login');
+  }
 
-  // En este punto de la aplicación el usuario existe
   const storedAddress = (await getUserAddress(session!.user.id)) || ({} as Address);
   const countries = await getCountries();
   return (
-    <Suspense fallback="CARGAND">
+    <Suspense fallback={<Loader />}>
       <div className="flex flex-col sm:justify-center sm:items-center mb-20 px-10 sm:px-0">
         <div className="w-full flex flex-col justify-center text-left">
           <Title title="Delivery address" subtitle="and who is receiving the purchase?" />
