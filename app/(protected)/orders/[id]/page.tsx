@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { getOrderById } from '@/app/actions/order/getOrderById';
 import { auth } from '@/auth.config';
@@ -52,7 +53,17 @@ export default async function ({ params }: Props) {
               {isPaid ? (
                 <OrderStatus isPaid={isPaid ?? false} />
               ) : (
-                <PayPalButton amount={`${total}`} orderId={`${id}`}></PayPalButton>
+                <>
+                  <PayPalButton amount={`${total}`} orderId={`${id}`}></PayPalButton>
+                  <p className="mt-3">
+                    You can pay{' '}
+                    <Link className="text-brand-burnt-peach hover:underline mt-3" href="/orders">
+                      later
+                    </Link>
+                    , but, take in consideration this order will be cancelled after 30 minutes.
+                    [FEATURE TO IMPLEMENT]
+                  </p>
+                </>
               )}
             </div>
           </div>
