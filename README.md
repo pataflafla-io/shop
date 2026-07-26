@@ -90,16 +90,17 @@ Some takeaways from building this project:
 
 Some ideas I'd like to continue working on:
 
+- Improve navigation
+- Implement User Profile
+- Improve User mantainance (user blocking, etc)
+- Theme improvements and UI polish
+- Store notification email when payment was done
 - Payment expiration workflow
-- Store notification emails
+- Additional payment providers (Stripe, Mercado Pago, etc.)
 - Email verification
 - Two-factor authentication (BetterAuth)
 - Improve error handling and messaging
 - Multi-language support
-- Additional payment providers (Stripe, Mercado Pago, etc.)
-- Theme improvements and UI polish
-- Improve User mantainance (user blocking, etc)
-- Implement User Profile
 
 ## Feedback & Contributions
 
@@ -107,8 +108,7 @@ No software is ever truly finished, and this project is no exception.
 
 There are probably edge cases I haven't encountered yet, implementation details that could be improved, or architectural decisions worth revisiting.
 
-If you find a bug, notice something that could be cleaner, or simply have an idea to improve the project.  
-I'd genuinely appreciate hearing from you.
+If you find a bug, notice something that could be cleaner, or simply have an idea to improve the project I'd genuinely appreciate hearing from you.
 
 Feel free to:
 
