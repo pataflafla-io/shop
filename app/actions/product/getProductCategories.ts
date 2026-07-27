@@ -2,12 +2,7 @@
 
 import prisma from '@/lib/prisma';
 
-export const getProductCategories = async (): Promise<
-  {
-    id: string;
-    name: string;
-  }[]
-> => {
+export const getProductCategories = async (): Promise<{ id: string; name: string }[]> => {
   try {
     const getCategories = await prisma.category.findMany({
       orderBy: {
