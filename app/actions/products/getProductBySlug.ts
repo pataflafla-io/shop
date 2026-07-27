@@ -6,20 +6,13 @@ export const getProductBySlug = async (slug: string) => {
   try {
     const product = await prisma.product.findUnique({
       include: {
-        productImages: {
-          select: {
-            url: true,
-          },
-        },
+        productImages: true,
       },
       where: { slug },
     });
 
     if (!product) {
-      // Vercel no expone, afortunadamente, errores al
-      // frontend.
-      //throw new Error("No contamos con ese producto");
-      return false;
+      return null;
     }
 
     return {
@@ -27,6 +20,6 @@ export const getProductBySlug = async (slug: string) => {
       images: product.productImages.map((image) => image.url),
     };
   } catch (error) {
-    throw new Error('😩 No contamos con ese producto');
+    return null;
   }
 };
