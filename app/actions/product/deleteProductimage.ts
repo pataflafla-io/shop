@@ -1,12 +1,21 @@
 'use server';
 
 import { revalidatePath } from 'next/cache';
+import { auth } from '@/auth.config';
 import prisma from '@/lib/prisma';
 import { v2 as cloudinary } from 'cloudinary';
 
 cloudinary.config(process.env.CLOUDINARY_URL ?? '');
 
 export const deleteProductImage = async (imageId: number, imageUrl: string) => {
+  const session = await auth();
+  if (session?.user.role !== 'admin') {
+    return {
+      success: false,
+      message: 'You need to be an administrator user for use this server action',
+    };
+  }
+
   // Borrar imágenes del filesystem no tiene sentido ya que:
   // 1- las imágenes van a estar alojadas en un bucket
   // 2- las imágenes que se encuentren en el fs son del seed

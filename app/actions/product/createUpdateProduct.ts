@@ -2,6 +2,7 @@
 
 import { revalidatePath } from 'next/cache';
 import { Product, Size } from '@/app/generated/prisma/client';
+import { auth } from '@/auth.config';
 import { Gender } from '@/interfaces/productGender.interface';
 import prisma from '@/lib/prisma';
 import { v2 as cloudinary } from 'cloudinary';
@@ -42,6 +43,14 @@ const productSchema = z.object({
 });
 
 export const createUpdateProduct = async (formData: FormData) => {
+  const session = await auth();
+  if (session?.user.role !== 'admin') {
+    return {
+      success: false,
+      message: 'You need to be an administrator user for use this server action',
+    };
+  }
+
   const data = Object.fromEntries(formData);
 
   // Se valida el objeto que llega desde el formulario
@@ -138,7 +147,7 @@ export const createUpdateProduct = async (formData: FormData) => {
 
     revalidatePath('/admin/products');
     revalidatePath(`/admin/products/${product.slug}`);
-    revalidatePath(`/products/${product.slug}`);
+    revalidatePath(`/product/${product.slug}`);
 
     return {
       success: true,
