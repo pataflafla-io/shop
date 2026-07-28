@@ -44,7 +44,7 @@ export const NavigationWithCategories = () => {
         <div className="hidden sm:block">
           <Link
             className={clsx(
-              'hover:bg-brand-seaweed m-2 rounded-md p-2 transition-all hover:text-white duration-300',
+              'hover:bg-brand-dark-cyan m-2 rounded-md p-2 transition-all hover:text-white duration-300',
               { 'bg-brand-orange text-white': currentGender === 'men' }
             )}
             href="/gender/men"
@@ -53,7 +53,7 @@ export const NavigationWithCategories = () => {
           </Link>
           <Link
             className={clsx(
-              'hover:bg-brand-seaweed m-2 rounded-md p-2 transition-all hover:text-white duration-300',
+              'hover:bg-brand-dark-cyan m-2 rounded-md p-2 transition-all hover:text-white duration-300',
               { 'bg-brand-orange text-white': currentGender === 'women' }
             )}
             href="/gender/women"
@@ -62,7 +62,7 @@ export const NavigationWithCategories = () => {
           </Link>
           <Link
             className={clsx(
-              'hover:bg-brand-seaweed m-2 rounded-md p-2 transition-all hover:text-white duration-300',
+              'hover:bg-brand-dark-cyan m-2 rounded-md p-2 transition-all hover:text-white duration-300',
               { 'bg-brand-orange text-white': currentGender === 'kids' }
             )}
             href="/gender/kids"

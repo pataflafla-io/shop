@@ -110,7 +110,7 @@ export const PlaceOrder = () => {
                   'btn-primary flex w-full justify-center sm:w-fit': !isOrderPlaced,
                 },
                 {
-                  'btn-secondary flex w-full justify-center sm:w-fit': isOrderPlaced,
+                  'btn-disabled flex w-full justify-center sm:w-fit': isOrderPlaced,
                 }
               )}
             >

@@ -45,7 +45,7 @@ export const LoginForm = () => {
         aria-disabled={isPending}
         disabled={isPending}
         type="submit"
-        className={clsx('btn-primary', { 'btn-secondary': isPending })}
+        className={clsx('btn-primary', { 'btn-disabled': isPending })}
       >
         {!isPending ? 'Log-in' : 'Please wait'}
       </button>

@@ -235,7 +235,7 @@ export const AddressForm = ({ countries, userStoredAddress }: Props) => {
           type="submit"
           className={clsx(
             { 'btn-primary flex w-full sm:w-fit justify-center': isValid },
-            { 'btn-secondary flex w-full sm:w-fit justify-center': !isValid }
+            { 'btn-disabled flex w-full sm:w-fit justify-center': !isValid }
           )}
         >
           Next
