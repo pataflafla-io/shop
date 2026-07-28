@@ -19,10 +19,10 @@ export const ProductImage = ({ alt, className, height, src, style, width }: Prop
     <Image
       alt={alt}
       className={className}
-      height={width}
+      height={height}
       src={imageSrc}
       style={style}
-      width={height}
+      width={width}
     />
   );
 };

@@ -75,14 +75,14 @@ export default async function ({ searchParams }: Props) {
                   key={product.id}
                   className="border-b border-gray-200 bg-white transition duration-300 ease-in-out hover:bg-gray-100"
                 >
-                  <td className="px-6 py-4 text-sm font-medium whitespace-nowrap text-gray-900">
+                  <td className="p-4">
                     <Link href={`/product/${product.slug}`}>
                       <ProductImage
                         alt={product.title}
-                        className="h-30 object-fit w-20 rounded-md"
-                        height={120}
+                        className="rounded-md"
+                        height={300}
                         src={product.productImages[0]?.url}
-                        width={80}
+                        width={300}
                       />
                     </Link>
                   </td>

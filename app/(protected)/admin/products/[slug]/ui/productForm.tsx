@@ -1,8 +1,9 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { createUpdateProduct } from '@/app/actions/product/createUpdateProduct';
+import { deleteProduct } from '@/app/actions/product/deleteProduct';
 import { deleteProductImage } from '@/app/actions/product/deleteProductimage';
 import { Product } from '@/interfaces/product.interface';
 import { ProductCategory } from '@/interfaces/productCategory.interface';
@@ -68,6 +69,9 @@ export const ProductForm = ({ product, categories }: Props) => {
     const sizes = new Set(getValues('sizes'));
     sizes.has(size) ? sizes.delete(size) : sizes.add(size);
     setValue('sizes', Array.from(sizes));
+    if (isValid) {
+      setIsProcessing(false);
+    }
   };
 
   const onFormSubmit = async (data: FormInput) => {
@@ -234,31 +238,39 @@ export const ProductForm = ({ product, categories }: Props) => {
       <div className="grid grid-cols-1 sm:px-0 gap-3 mt-4">
         <div className="w-full">
           <div className="grid grid-cols-1 sm:grid-cols-6 gap-3">
-            {product.productImages?.map((image) => (
-              <div key={image.url}>
-                <ProductImageCmpnt
-                  alt={product.title ?? ''}
-                  className="rounded-t-md saturate-0"
-                  height={300}
-                  src={image.url}
-                  width={300}
-                />
-                <button
-                  className="btn-danger w-full rounded-b-md"
-                  type="button"
-                  onClick={() => deleteProductImage(image.id, image.url)}
-                >
-                  remove
-                </button>
-              </div>
-            ))}
+            {product.productImages?.map((image) => {
+              const isFromSeed = !image.url.includes('https');
+              return (
+                <div key={image.url}>
+                  <ProductImageCmpnt
+                    alt={product.title ?? ''}
+                    className={clsx('rounded-t-md', { 'saturate-0': isFromSeed })}
+                    height={300}
+                    src={image.url}
+                    width={300}
+                  />
+                  <button
+                    disabled={isFromSeed}
+                    className={clsx(
+                      'w-full rounded-b-md',
+                      { 'btn-danger': !isFromSeed },
+                      { 'btn-disabled': isFromSeed }
+                    )}
+                    type="button"
+                    onClick={() => deleteProductImage(image.id, image.url)}
+                  >
+                    {!isFromSeed ? 'remove' : 'seeded image'}
+                  </button>
+                </div>
+              );
+            })}
           </div>
         </div>
         <div className="flex w-full justify-end mt-10 gap-3">
           <button
             type="button"
             className="btn-danger w-1/4"
-            onClick={() => router.replace('/admin/products')}
+            onClick={() => deleteProduct(product.id!)} //router.replace('/admin/products')}
           >
             Cancel
           </button>
@@ -268,7 +280,7 @@ export const ProductForm = ({ product, categories }: Props) => {
             className={clsx(
               'w-1/4',
               { 'btn-primary cursor-pointer': isValid && !isProcessing },
-              { 'btn-secondary cursor-not-allowed': !isValid || isProcessing }
+              { 'btn-disabled cursor-not-allowed': !isValid || isProcessing }
             )}
           >
             {isProcessing ? 'Please wait while your request is processing' : 'Save'}
