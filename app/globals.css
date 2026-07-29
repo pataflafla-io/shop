@@ -95,10 +95,14 @@ body {
   @apply rounded bg-brand-soft px-4 py-2 text-black transition-all duration-500 hover:bg-brand-seaweed hover:text-white;
 }
 
+.btn-cancel {
+  @apply rounded bg-mauve-500 px-4 py-2 text-white transition-all duration-500 hover:bg-mauve-400 hover:text-white;
+}
+
 .btn-disabled {
-  @apply rounded bg-gray-200 px-4 py-2 text-black transition-all duration-500 hover:bg-gray-300;
+  @apply rounded bg-mauve-300 px-4 py-2 text-mauve-800;
 }
 
 .btn-danger {
-  @apply bg-gray-200 text-black hover:bg-red-700 px-4 py-2 hover:text-white transition-all duration-500;
+  @apply rounded bg-transparent text-red-700 border border-red-700 px-4 py-2 transition-all duration-500 hover:bg-red-700 hover:text-white;
 }
