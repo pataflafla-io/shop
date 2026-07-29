@@ -80,9 +80,9 @@ export default async function ({ searchParams }: Props) {
                       <ProductImage
                         alt={product.title}
                         className="rounded-md"
-                        height={300}
+                        height={100}
                         src={product.productImages[0]?.url}
-                        width={300}
+                        width={100}
                       />
                     </Link>
                   </td>
