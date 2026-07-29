@@ -8,9 +8,10 @@ import { deleteProductImage } from '@/app/actions/product/deleteProductimage';
 import { Product } from '@/interfaces/product.interface';
 import { ProductCategory } from '@/interfaces/productCategory.interface';
 import { ProductImage } from '@/interfaces/productImage.interface';
+import { delay } from '@/utils/delay';
 import clsx from 'clsx';
 import { useForm } from 'react-hook-form';
-import { toast } from 'sonner';
+import { toast as sonnerToast } from 'sonner';
 import { ProductImage as ProductImageCmpnt } from '@/components/product/productImage/ProductImage';
 
 interface Props {
@@ -35,8 +36,74 @@ interface FormInput {
 
 const sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
 
+// Headlesss Toast
+// https://sonner.emilkowal.ski/styling
+// ¿Mover a un ui component?
+interface ToastProps {
+  id: string | number;
+  title: string;
+  description: string;
+  button: {
+    label: string;
+    onClick: () => void;
+  };
+  actionForCancel?: () => void;
+}
+
+const REMOVE_PRODUCT_TOASTER = 'removeProductToaster';
+function makeToast(toast: Omit<ToastProps, 'id'>) {
+  return sonnerToast.custom(
+    (id) => (
+      <ToastContent
+        id={`headlessToast-${id}`}
+        title={toast.title}
+        description={toast.description}
+        actionForCancel={toast.actionForCancel}
+        button={{
+          label: toast.button.label,
+          onClick: toast.button.onClick,
+        }}
+      />
+    ),
+    {
+      duration: Infinity,
+      id: REMOVE_PRODUCT_TOASTER,
+    }
+  );
+}
+function ToastContent(props: ToastProps) {
+  const { title, description, button, id, actionForCancel } = props;
+
+  return (
+    <div className="flex flex-col rounded-lg bg-white shadow-lg  w-full md:max-w-91 items-center p-4">
+      <div className="flex flex-1 items-center">
+        <div className="w-full">
+          <p className="text-xl font-bold">{title}</p>
+          <p className="mt-1 text-md">{description}</p>
+        </div>
+      </div>
+      <div className="flex w-full justify-end mt-3">
+        <button
+          className="btn-cancel mr-2"
+          onClick={() => {
+            actionForCancel && actionForCancel();
+            sonnerToast.dismiss(REMOVE_PRODUCT_TOASTER);
+          }}
+        >
+          Cancel
+        </button>
+        <button className="btn-danger" onClick={button.onClick}>
+          {button.label}
+        </button>
+      </div>
+    </div>
+  );
+}
+// Fin Headless Toast
+
 export const ProductForm = ({ product, categories }: Props) => {
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
+  const [isWaitingForConfirmToRemove, setIsWaitingForConfirmToRemove] = useState<boolean>(false);
 
   const {
     handleSubmit,
@@ -66,10 +133,11 @@ export const ProductForm = ({ product, categories }: Props) => {
     // El Set functiona como un Array, con la
     // excepción que no acepta duplicados.
     // Ta'bueno bueno!!!
+    setIsProcessing(true);
     const sizes = new Set(getValues('sizes'));
     sizes.has(size) ? sizes.delete(size) : sizes.add(size);
     setValue('sizes', Array.from(sizes));
-    if (isValid) {
+    if (isValid && getValues('sizes').length) {
       setIsProcessing(false);
     }
   };
@@ -101,192 +169,244 @@ export const ProductForm = ({ product, categories }: Props) => {
 
     const { success, product: updatedOrCreatedProduct } = await createUpdateProduct(formData);
     if (!success) {
-      toast.error(`Product ${product.title} couldn't be saved.`);
+      sonnerToast.error(`Product ${product.title} couldn't be saved.`);
       return;
     }
 
     setValue('images', undefined);
     setIsProcessing(false);
-    //router.replace('/admin/products/');
-    //toast.error(`Product ${product.title} was saved.`);
+
+    sonnerToast.success(`Product ${product.title} was saved.`);
+  };
+
+  const cancelWaitingForConfirmToRemove = () => {
+    setIsWaitingForConfirmToRemove(false);
+    sonnerToast.dismiss(REMOVE_PRODUCT_TOASTER);
+  };
+
+  const onRemoveProduct = (productId: string) => {
+    setIsWaitingForConfirmToRemove(true);
+    makeToast({
+      title: 'Are you sure?',
+      description:
+        'By confirming you will delete this product from the database catalog alongside the images from the bucket as well.',
+      button: {
+        label: 'Remove',
+        onClick: async () => {
+          sonnerToast.dismiss(REMOVE_PRODUCT_TOASTER);
+          await delay(500);
+          const response = await deleteProduct(productId);
+          console.log(response);
+          sonnerToast.success(`Product ${product.title} was deleted.`);
+        },
+      },
+      actionForCancel: () => setIsWaitingForConfirmToRemove(false),
+    });
   };
 
   return (
-    <form className="px-5 mt-6 mb-16" onSubmit={handleSubmit(onFormSubmit)}>
-      <div className="grid grid-cols-1 sm:px-0 sm:grid-cols-2 gap-3">
-        <div className="w-full">
-          <div className="flex flex-col mb-3">
-            <span className="text-lg">Title</span>
-            <input
-              type="text"
-              className="p-2 rounded-md bg-gray-200"
-              {...register('title', { required: true })}
-            />
-          </div>
-          <div className="flex flex-col mb-3">
-            <span className="text-lg">Slug</span>
-            <input
-              type="text"
-              className="p-2 rounded-md bg-gray-200"
-              {...register('slug', { required: true })}
-            />
-          </div>
-          <div className="flex flex-col mb-3">
-            <span className="text-lg">Price</span>
-            <input
-              type="number"
-              className="p-2 rounded-md bg-gray-200"
-              {...register('price', { required: true, min: 1 })}
-            />
-          </div>
-          <div className="flex flex-col mb-3">
-            <span className="text-lg">Stock</span>
-            <input
-              type="number"
-              className="p-2 rounded-md bg-gray-200"
-              {...register('inStock', { required: true, min: 1 })}
-            />
-          </div>
-          <div className="flex flex-col mb-3">
-            <span className="text-lg">Gender</span>
-            <select
-              className="p-2 rounded-md bg-gray-200"
-              {...register('gender', { required: true })}
-            >
-              <option value="">[Seleccione]</option>
-              <option value="men">Men</option>
-              <option value="women">Women</option>
-              <option value="kid">Kid</option>
-              <option value="unisex">Unisex</option>
-            </select>
-          </div>
-          <div className="w-1/3 mt-3">
+    <>
+      {isWaitingForConfirmToRemove && (
+        <div className="fixed z-10 top-0 left-0 w-full h-screen bg-black opacity-50" />
+      )}
+      {isWaitingForConfirmToRemove && (
+        <div
+          onClick={() => cancelWaitingForConfirmToRemove()}
+          className="fade-in fixed z-10 top-0 left-0 w-full h-screen backdrop-filter backdrop-blur-xs"
+        />
+      )}
+      <form className="px-5 mt-6 mb-16" onSubmit={handleSubmit(onFormSubmit)}>
+        <div className="grid grid-cols-1 sm:px-0 sm:grid-cols-2 gap-3">
+          <div className="w-full">
             <div className="flex flex-col mb-3">
-              <span className="text-lg">Images</span>
+              <span className="text-lg">Title</span>
               <input
-                type="file"
-                multiple
+                type="text"
                 className="p-2 rounded-md bg-gray-200"
-                accept="image/png, image/jpeg"
-                {...register('images')}
+                {...register('title', { required: true })}
+              />
+            </div>
+            <div className="flex flex-col mb-3">
+              <span className="text-lg">Slug</span>
+              <input
+                type="text"
+                className="p-2 rounded-md bg-gray-200"
+                {...register('slug', { required: true })}
+              />
+            </div>
+            <div className="flex flex-col mb-3">
+              <span className="text-lg">Price</span>
+              <input
+                type="number"
+                className="p-2 rounded-md bg-gray-200"
+                {...register('price', { required: true, min: 1 })}
+              />
+            </div>
+            <div className="flex flex-col mb-3">
+              <span className="text-lg">Stock</span>
+              <input
+                type="number"
+                className="p-2 rounded-md bg-gray-200"
+                {...register('inStock', { required: true, min: 1 })}
+              />
+            </div>
+            <div className="flex flex-col mb-3">
+              <span className="text-lg">Gender</span>
+              <select
+                className="p-2 rounded-md bg-gray-200"
+                {...register('gender', { required: true })}
+              >
+                <option value="">[Seleccione]</option>
+                <option value="men">Men</option>
+                <option value="women">Women</option>
+                <option value="kid">Kid</option>
+                <option value="unisex">Unisex</option>
+              </select>
+            </div>
+            <div className="w-1/3 mt-3">
+              <div className="flex flex-col mb-3">
+                <span className="text-lg">Images</span>
+                <input
+                  type="file"
+                  multiple
+                  className="p-2 rounded-md bg-gray-200"
+                  accept="image/png, image/jpeg"
+                  {...register('images')}
+                />
+              </div>
+            </div>
+          </div>
+          <div className="w-full">
+            <div className="flex flex-col mb-3">
+              <span className="text-lg">Description</span>
+              <textarea
+                rows={5}
+                className="p-2 rounded-md bg-gray-200"
+                {...register('description', { required: true })}
+              ></textarea>
+            </div>
+            <div className="flex flex-col mb-3">
+              <span className="text-lg">Sizes</span>
+              <div className="flex flex-wrap">
+                {sizes.map((size) => {
+                  const isSelected = getValues('sizes').includes(size);
+                  return (
+                    <div
+                      key={size}
+                      onClick={() => onSizeChanged(size)}
+                      className={clsx(
+                        'mx-2 p-2 cursor-pointer border rounded-md transition-all text-lg',
+                        {
+                          'hover:text-white hover:bg-brand-seaweed ': !isSelected,
+                        },
+                        {
+                          'text-white border-brand-orange bg-brand-orange shadow-sm': isSelected,
+                        }
+                      )}
+                    >
+                      <span>{size}</span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+            <div className="flex flex-col mb-3">
+              <span className="text-lg">Categories</span>
+              {!categories ? (
+                <span>There's no categories.</span>
+              ) : (
+                <select
+                  multiple
+                  className="p-2 rounded-md bg-gray-200"
+                  {...register('categoryId', { required: true })}
+                >
+                  {categories.map((category) => (
+                    <option key={category.id} value={category.id}>
+                      {category.name}
+                    </option>
+                  ))}
+                </select>
+              )}
+            </div>
+            <div className="flex flex-col">
+              <span className="text-lg">Tags</span>
+              <input
+                type="text"
+                className="p-2 rounded-md bg-gray-200"
+                {...register('tags', { required: true })}
               />
             </div>
           </div>
         </div>
-        <div className="w-full">
-          <div className="flex flex-col mb-3">
-            <span className="text-lg">Description</span>
-            <textarea
-              rows={5}
-              className="p-2 rounded-md bg-gray-200"
-              {...register('description', { required: true })}
-            ></textarea>
-          </div>
-          <div className="flex flex-col mb-3">
-            <span className="text-lg">Sizes</span>
-            <div className="flex flex-wrap">
-              {sizes.map((size) => {
-                const isSelected = getValues('sizes').includes(size);
+        <div className="grid grid-cols-1 sm:px-0 gap-3 mt-4">
+          <div className="w-full">
+            <div className="grid grid-cols-1 sm:grid-cols-6 gap-3">
+              {product.productImages?.map((image) => {
+                const isFromSeed = !image.url.includes('https');
                 return (
-                  <div
-                    key={size}
-                    onClick={() => onSizeChanged(size)}
-                    className={clsx(
-                      'mx-2 p-2 cursor-pointer border rounded-md transition-all text-lg',
-                      {
-                        'hover:text-white hover:bg-brand-seaweed ': !isSelected,
-                      },
-                      {
-                        'text-white border-brand-orange bg-brand-orange shadow-sm': isSelected,
-                      }
-                    )}
-                  >
-                    <span>{size}</span>
+                  <div key={image.url}>
+                    <ProductImageCmpnt
+                      alt={product.title ?? ''}
+                      className={clsx('rounded-t-md', { 'saturate-0': isFromSeed })}
+                      height={300}
+                      src={image.url}
+                      width={300}
+                    />
+                    <button
+                      disabled={isFromSeed}
+                      className={clsx(
+                        'w-full px-4 py-2',
+                        {
+                          'rounded-b-md text-red-700 bg-transparent border-1 border-red-700 transition-all duration-500 hover:bg-red-700 hover:text-white':
+                            !isFromSeed,
+                        },
+                        { 'rounded-b-md bg-mauve-300 text-mauve-800': isFromSeed }
+                      )}
+                      type="button"
+                      onClick={() => deleteProductImage(image.id, image.url)}
+                    >
+                      {!isFromSeed ? 'remove' : 'seeded image'}
+                    </button>
                   </div>
                 );
               })}
             </div>
           </div>
-          <div className="flex flex-col mb-3">
-            <span className="text-lg">Categories</span>
-            {!categories ? (
-              <span>There's no categories.</span>
-            ) : (
-              <select
-                multiple
-                className="p-2 rounded-md bg-gray-200"
-                {...register('categoryId', { required: true })}
+          <div className="flex w-full justify-end mt-10 gap-3">
+            {product.id && (
+              <button
+                className="btn-danger"
+                onClick={() => onRemoveProduct(product.id!)}
+                type="button"
               >
-                {categories.map((category) => (
-                  <option key={category.id} value={category.id}>
-                    {category.name}
-                  </option>
-                ))}
-              </select>
+                Remove product
+              </button>
             )}
-          </div>
-          <div className="flex flex-col">
-            <span className="text-lg">Tags</span>
-            <input
-              type="text"
-              className="p-2 rounded-md bg-gray-200"
-              {...register('tags', { required: true })}
-            />
-          </div>
-        </div>
-      </div>
-      <div className="grid grid-cols-1 sm:px-0 gap-3 mt-4">
-        <div className="w-full">
-          <div className="grid grid-cols-1 sm:grid-cols-6 gap-3">
-            {product.productImages?.map((image) => {
-              const isFromSeed = !image.url.includes('https');
-              return (
-                <div key={image.url}>
-                  <ProductImageCmpnt
-                    alt={product.title ?? ''}
-                    className={clsx('rounded-t-md', { 'saturate-0': isFromSeed })}
-                    height={300}
-                    src={image.url}
-                    width={300}
-                  />
-                  <button
-                    disabled={isFromSeed}
-                    className={clsx(
-                      'w-full rounded-b-md',
-                      { 'btn-danger': !isFromSeed },
-                      { 'btn-disabled': isFromSeed }
-                    )}
-                    type="button"
-                    onClick={() => deleteProductImage(image.id, image.url)}
-                  >
-                    {!isFromSeed ? 'remove' : 'seeded image'}
-                  </button>
-                </div>
-              );
-            })}
+            <button
+              type="button"
+              className="btn-cancel"
+              onClick={() => router.replace('/admin/products')}
+            >
+              Cancel
+            </button>
+            <button
+              disabled={!isValid || isProcessing}
+              type="submit"
+              className={clsx(
+                'w-1/4',
+                { 'btn-primary cursor-pointer': isValid && !isProcessing },
+                { 'btn-disabled cursor-not-allowed': !isValid || isProcessing }
+              )}
+            >
+              {isProcessing
+                ? getValues('sizes').length
+                  ? 'Please wait while your request is processing'
+                  : 'All fields are required.'
+                : 'Save'}
+            </button>
           </div>
         </div>
-        <div className="flex w-full justify-end mt-10 gap-3">
-          <button
-            type="button"
-            className="btn-danger w-1/4"
-            onClick={() => deleteProduct(product.id!)} //router.replace('/admin/products')}
-          >
-            Cancel
-          </button>
-          <button
-            disabled={!isValid || isProcessing}
-            type="submit"
-            className={clsx(
-              'w-1/4',
-              { 'btn-primary cursor-pointer': isValid && !isProcessing },
-              { 'btn-disabled cursor-not-allowed': !isValid || isProcessing }
-            )}
-          >
-            {isProcessing ? 'Please wait while your request is processing' : 'Save'}
-          </button>
-        </div>
-      </div>
-    </form>
+      </form>
+    </>
   );
 };
