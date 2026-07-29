@@ -4,6 +4,7 @@ import { revalidatePath } from 'next/cache';
 import { auth } from '@/auth.config';
 import prisma from '@/lib/prisma';
 import { v2 as cloudinary } from 'cloudinary';
+import { success } from 'zod';
 
 cloudinary.config(process.env.CLOUDINARY_URL ?? '');
 
@@ -28,9 +29,6 @@ export const deleteProductImage = async (imageId: number, imageUrl: string) => {
 
   const imageName = imageUrl.split('/').pop()?.split('.')[0] ?? '';
   try {
-    // No es deseable estar dejando imágenes en el bucket que ya no
-    // se van a usar. Reciclemos bits!
-    cloudinary.uploader.destroy(imageName);
     const deleteImage = await prisma.productImage.delete({
       where: {
         id: imageId,
@@ -45,9 +43,19 @@ export const deleteProductImage = async (imageId: number, imageUrl: string) => {
       },
     });
 
+    // No es deseable estar dejando imágenes en el bucket que ya no
+    // se van a usar. Reciclemos bits!
+    const cloudinaryResponse = await cloudinary.uploader.destroy(imageName);
+    if (cloudinaryResponse.result === 'not_found') {
+    }
+
     revalidatePath('/admin/products');
     revalidatePath(`/admin/products/${deleteImage.product.slug}`);
     revalidatePath(`/product/${deleteImage.product.slug}`);
+
+    return {
+      success: true,
+    };
   } catch (error) {
     return {
       success: false,
