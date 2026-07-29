@@ -1,15 +1,33 @@
-# pataflafla.io | ecommerce
+# eCommerce
 
-This project is a complete eCommerce application built from scratch.  
-Rather than trying to showcase every framework or library I've learned over the years, this repository reflects something I consider far more valuable: ****how I approach software engineering.****
+## Live Demo
+
+🌐 **Demo:** https://demoshop.pataflafla.io
+
+> Some administrative features are intentionally limited in the public demo to preserve the environment.  
+> The complete implementation is available in this repository.
+
+---
+
+## About
+
+This project is a complete eCommerce application built from scratch.
+
+Rather than trying to showcase every framework or library I've learned over the years, this repository reflects something I consider far more valuable: **how I approach software engineering.**
 
 I enjoy building systems that are easy to understand, pleasant to maintain, and pragmatic enough to evolve over time.
 
-The goal wasn't simply to make an online store work, it was to build a project that another developer could clone months later, understand quickly, and feel comfortable extending.
+The goal wasn't simply to make an online store work. It was to build a project that another developer could clone months later, understand quickly, and feel comfortable extending.
 
-Along the way, I found myself doing what software engineering often requires beyond the "happy path": reading official documentation, investigating GitHub issues, dealing with version differences, and solving problems that only appear once a project starts behaving like a real application.
+Like many real-world projects, this one eventually moved beyond the tutorial.
 
-Those moments became the most valuable part of the journey.
+Reading official documentation, investigating GitHub issues, dealing with breaking changes, and understanding unexpected behavior became the most valuable part of the journey.
+
+It reinforced something I've experienced throughout my career:
+
+> **The best learning begins when the tutorial runs out of answers.**
+
+---
 
 ## Features
 
@@ -24,20 +42,27 @@ Those moments became the most valuable part of the journey.
 - Database persistence
 - Responsive interface
 
-> **Features may evolve as the project continues to grow.**
+> This project is intentionally treated as an evolving codebase rather than a finished product.
+
+---
 
 ## Tech Stack
 
 - Next.js
+- React
+- TypeScript
 - Prisma
 - PostgreSQL
 - NextAuth
 - Zod
+- Zustand
 - Tailwind CSS
 
-## Engineering Notes
+---
 
-This repository intentionally keeps a relatively simple architecture while following practices that make the project easier to understand and maintain.
+## Engineering Principles
+
+This project intentionally favors clarity over cleverness.
 
 Some of the principles behind it include:
 
@@ -50,7 +75,9 @@ Some of the principles behind it include:
 - Consistent naming
 - Documentation where it adds value
 
-I believe building software is often less about writing code and more about understanding ****why**** things behave the way they do.
+I believe software engineering is often less about writing code and more about understanding why things behave the way they do.
+
+---
 
 ## Lessons Learned
 
@@ -62,6 +89,8 @@ Some takeaways from building this project:
 - Understanding the framework is more valuable than memorizing APIs.
 - Keeping things simple usually pays off.
 
+---
+
 ## Getting Started
 
 ### Requirements
@@ -72,43 +101,80 @@ Some takeaways from building this project:
 
 ### Installation
 
-1.  Clone this repository.
-2.  Copy _env.template_ file and rename it to _.env_:
-    `cp .env.template .env`
-3.  Install dependencies:
-    `npm install`
-4.  Start the database:
-    `docker compose up -d`
-5.  Run database migrations:
-    `npx prisma migrate dev`
-6.  Seed the database:
-    `npm run seed`
-7.  Start the development server:
-    `npm run dev`
+Clone the repository:
+
+```bash
+git clone https://github.com/your-user/your-repository.git
+```
+
+Move into the project:
+
+```bash
+cd your-repository
+```
+
+Create the environment file:
+
+```bash
+cp .env.template .env
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Start the database:
+
+```bash
+docker compose up -d
+```
+
+Run the migrations:
+
+```bash
+npx prisma migrate dev
+```
+
+Seed the database:
+
+```bash
+npm run seed
+```
+
+Start the development server:
+
+```bash
+npm run dev
+```
+
+---
 
 ## Roadmap
 
-Some ideas I'd like to continue working on:
+Planned improvements include:
 
-- Improve navigation
-- Implement User Profile
-- Improve User mantainance (user blocking, etc)
-- Theme improvements and UI polish
-- Store notification email when payment was done
+- User Profile
+- User management improvements
+- Navigation and UI polish
+- Payment confirmation emails
 - Payment expiration workflow
 - Additional payment providers (Stripe, Mercado Pago, etc.)
 - Email verification
 - Two-factor authentication (BetterAuth)
-- Improve error handling and messaging
+- Improved error handling and messaging
 - Multi-language support
+
+---
 
 ## Feedback & Contributions
 
 No software is ever truly finished, and this project is no exception.
 
-There are probably edge cases I haven't encountered yet, implementation details that could be improved, or architectural decisions worth revisiting.
+There are probably edge cases I haven't encountered yet, implementation details that could be improved, and architectural decisions worth discussing.
 
-If you find a bug, notice something that could be cleaner, or simply have an idea to improve the project I'd genuinely appreciate hearing from you.
+If you find a bug, notice something that could be cleaner, or simply have an idea to improve the project, I'd genuinely appreciate hearing from you.
 
 Feel free to:
 
@@ -116,11 +182,16 @@ Feel free to:
 - Start a Discussion
 - Submit a Pull Request
 
-Software improves through collaboration, not perfection.  
-If we can make this project better together, even better ♥️
+> **Software improves through collaboration, not perfection.**
+
+If we can make this project better together, even better. ❤️
+
+---
 
 ## Final Thoughts
 
-This repository represents more than a working eCommerce application, it reflects how I like to build software: with curiosity, attention to detail, maintainability, and the understanding that every project is an opportunity to keep learning.
+This repository is more than a working eCommerce application.
 
-Thanks for stopping by 🙏🏼
+It's a snapshot of how I enjoy building software: with curiosity, attention to detail, maintainability, and the belief that understanding a system will always be more valuable than memorizing a tool.
+
+Thanks for stopping by. 🙏🏼
