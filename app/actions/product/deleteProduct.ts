@@ -43,7 +43,7 @@ export const deleteProduct = async (productId: string) => {
     });
 
     const deletedImages = await Promise.all(deletedImagesPromises);
-    const everyImageWasDeleted = deletedImages.every((result) => result === true);
+    const everyImageWasDeleted = deletedImages.every((result) => result.success === true);
     if (!everyImageWasDeleted) {
       throw new Error("Images couldn't be deleted");
     }
