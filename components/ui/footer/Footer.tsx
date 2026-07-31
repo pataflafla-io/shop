@@ -11,10 +11,6 @@ export const Footer = () => {
         <span className={`${titleFont.className} antialiased`}>.io</span>
         <span>&nbsp;|&nbsp;©{new Date().getFullYear()}</span>
       </Link>
-      <p className="p-5 sm:p-0">
-        <span className="font-bold">Important</span>: You're running in a live demo environment,
-        because of that, some features are disabled.
-      </p>
     </div>
   );
 };
