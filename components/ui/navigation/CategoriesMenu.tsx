@@ -25,7 +25,7 @@ export const CategoriesMenu = () => {
         )}
         href="/gender/men"
       >
-        <span className="sm:ml-3 text-xl">Men</span>
+        <span className="ml-3 sm:ml-0 text-xl">Men</span>
       </Link>
       <Link
         className={clsx(
@@ -34,7 +34,7 @@ export const CategoriesMenu = () => {
         )}
         href="/gender/women"
       >
-        <span className="sm:ml-3 text-xl">Women</span>
+        <span className="ml-3 sm:ml-0 text-xl">Women</span>
       </Link>
       <Link
         className={clsx(
@@ -43,7 +43,7 @@ export const CategoriesMenu = () => {
         )}
         href="/gender/kids"
       >
-        <span className="sm:ml-3 text-xl">Kids</span>
+        <span className="ml-3 sm:ml-0 text-xl">Kids</span>
       </Link>
     </>
   );
