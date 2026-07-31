@@ -11,7 +11,7 @@ export default function ShopLayout({ children }: { children: React.ReactNode }) 
       <Suspense fallback={<Loader />}>
         <NavigationWithCategories />
         <Sidebar />
-        <div className="px-5 sm:px-15">{children}</div>
+        <div className="sm:px-15">{children}</div>
         <Footer />
         <Toaster
           toastOptions={{

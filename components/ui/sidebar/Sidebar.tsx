@@ -17,11 +17,10 @@ import {
   IoShirtOutline,
   IoTicketOutline,
 } from 'react-icons/io5';
-import { CategoriesMenu } from '@/components/ui/navigation/CategoriesMenu';
 
 export const Sidebar = () => {
   const { data: session } = useSession();
-  const isAuthenticated = session?.user;
+  const isAuthenticated = !!session?.user;
 
   const router = useRouter();
 
@@ -50,7 +49,7 @@ export const Sidebar = () => {
       )}
       <nav
         className={clsx(
-          'fixed z-20 top-0 right-0 p-5 w-full sm:w-100 h-screen bg-white shadow-2xl transition-all duration-300',
+          'fixed z-20 top-0 right-0 p-5 w-100 h-screen bg-white shadow-2xl transition-all duration-300',
           { 'translate-x-full': !isSidebarOpen }
         )}
       >
@@ -67,12 +66,26 @@ export const Sidebar = () => {
             onClick={closeSidebar}
           />
         </div>
-        <div className="flex flex-col sm:hidden">
-          <CategoriesMenu />
-        </div>
+        {!isAuthenticated && (
+          <button
+            onClick={() => signIn()}
+            className="w-full flex items-center p-2 hover:bg-gray-100 rounded transition-all"
+          >
+            <IoLogInOutline size={20} />
+            <span className="ml-3 text-xl">Sign in</span>
+          </button>
+        )}
 
         {session?.user.role === 'user' && (
           <>
+            <Link
+              href="/profile"
+              onClick={() => closeSidebar()}
+              className="flex items-center w-full mt-5 p-2 rounded-lg hover:bg-black hover:text-white transition-all duration-300"
+            >
+              <IoPersonOutline size={20} />
+              <span className="ml-3 text-xl">Your profile</span>
+            </Link>
             <Link
               href="/orders"
               onClick={() => closeSidebar()}
@@ -114,23 +127,14 @@ export const Sidebar = () => {
         )}
 
         <div className="w-full h-px bg-gray-200 my-5" />
-        {!isAuthenticated ? (
-          <button
-            onClick={() => signIn()}
-            className="sm:hidden w-full flex items-center p-2 hover:bg-gray-100 rounded transition-all"
-          >
-            <IoLogInOutline size={20} />
-            <span className="ml-3 text-xl">Sign in</span>
-          </button>
-        ) : (
-          <button
-            onClick={handleSignout}
-            className="flex items-center w-full p-2 rounded-lg hover:bg-black hover:text-white transition-all duration-300"
-          >
-            <IoLogOutOutline size={20} />
-            <span className="ml-3 text-xl">Sign out</span>
-          </button>
-        )}
+
+        <button
+          onClick={handleSignout}
+          className="flex items-center w-full p-2 rounded-lg hover:bg-black hover:text-white transition-all duration-300"
+        >
+          <IoLogOutOutline size={20} />
+          <span className="ml-3 text-xl">Sign out</span>
+        </button>
       </nav>
     </div>
   );
